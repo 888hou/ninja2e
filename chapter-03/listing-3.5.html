@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../qunit/qunit-git.css"/>
+    <script src="../qunit/qunit-git.js"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <script>
+      function sayHiToNinja(ninja) {
+        return "Hi " + ninja;
+      }
+
+      QUnit.test("Ninja hello test", function(assert) {
+       assert.ok( sayHiToNinja("Hatori") == "Hi Hatori", "Passed");
+       assert.ok( false, "Failed");
+      });
+    </script>
+ </body>
+</html>
