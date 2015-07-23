@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calling methods</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+
+    function creep() {                              //#A
+      return this;
+    }
+
+    assert(creep() === window,
+      "Creeping in the window");                    //#B
+
+    var sneak = creep;                              //#C
+
+    assert(sneak() === window,
+      "Sneaking in the window");                    //#D
+
+    var ninja1 = {                                  //#E
+      skulk: creep
+    };
+
+    assert(ninja1.skulk() === ninja1,
+      "The 1st ninja is skulking");                 //#F
+
+    var ninja2 = {                                  //#G
+      skulk: creep
+    };
+
+    assert(ninja2.skulk() === ninja2,
+      "The 2nd ninja is skulking");                 //#H
+
+  </script>
+</body>
+
+</html>

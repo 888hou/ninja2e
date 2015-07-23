@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Closures and private variables</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script type="text/javascript">
+	  function Ninja() {                                  //#1
+	    var feints = 0;                                          //#2
+	    this.getFeints = function(){                       //#3
+	      return feints;                   
+	    };                                                 //#3
+	    this.feint = function(){                           //#4
+	      feints++;                  
+	    };                                                 //#4
+	  }
+	  var ninja1 = new Ninja();                               //#5  
+	  ninja1.feint();                                               //#6
+	  assert(ninja1.getFeints() == 1,                               //#7
+	         "We're able to access the internal feint count.");    //#7
+	  assert(ninja1.feints === undefined,                            //#8
+	         "And the private data is inaccessible to us.");        //#8
+	  
+	  var ninja2 = new Ninja();						//#9
+	  assert(ninja2.getFeints() == 0,                               
+	         "The second ninja object gets it’s own feints variable.");    //#9
+
+	/*#1 Defines the constructor for a Ninja.
+	#2 Declares a variable inside the function (constructor). Because the scope of the variable is limited to inside the constructor, it’s a “private” variable. We’ll use it to count how many times the ninja has feinted.
+	#3 Creates an accessor method for the feints counter. As the variable is not accessible to code outside the constructor, this is a common way to give read-only access to the value.
+	#4 Declares the increment method for the value. Because the value is private, no one can screw it up behind our backs; they are limited to the access that we give them via methods.
+	#5 Now for testing; first we construct an instance of Ninja.
+	#6 Calls the feint() method, which increments the count of the number of times that our ninja has feinted.
+	#7 Verifies that we can’t get at the variable directly.
+	#8 Shows that we’ve caused the value to increment to 1, even though we had no direct access to it. We can affect the feints value because, even though the constructor in which it’s declared has finished executing and gone out of scope, the feints variable is bound into the closure (think protective bubble) created by the declaration of the feint() method, and is available to that method.
+	#9 When we create a new ninja2 object with the Ninja constructor, the ninja2 objects gets it’s own feints variable*/
+</script>
+</body>
+</html>

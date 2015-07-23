@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Building a forEach function</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+
+    function forEach(list,callback) {              //#A
+      for (var n = 0; n < list.length; n++) {
+        callback.call(list[n],n);                  //#B
+      }
+    }
+
+    var weapons = ['shuriken','katana','nunchucks'];   //#C
+
+    forEach(                                           //#D
+      weapons,
+      function(index){
+        assert(this == weapons[index],
+          "Got the expected value of " + weapons[index]);
+      }
+    );
+
+
+  </script>
+</body>
+
+</html>

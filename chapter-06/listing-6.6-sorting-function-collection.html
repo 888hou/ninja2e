@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sorting function collection</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script type="text/javascript">
+	  var store = {
+	    nextId: 1,                                               //#1
+	    cache: {},                                               //#2
+	    add: function(fn) {                                      //#3
+	      if (!fn.id) {                              
+	        fn.id = store.nextId++;                  
+	        store.cache[fn.id] = fn;
+	        return true;      
+	      }                                          
+	    }
+	                                                        //#3
+	  };
+	  
+	  function ninja(){}             
+	  assert(store.add(ninja),                                  //#4
+	         "Function was safely added.");        
+	  assert(!store.add(ninja),                    
+	         "But it was only added once.");                    //#4
+
+	  //#1 Keeps track of the next available id to be assigned.
+	  //#2 Creates an object to serve as a cache in which we’ll store functions.
+	  //#3 Adds functions to the cache, but only if they’re unique.
+	</script>
+</body>
+</html>

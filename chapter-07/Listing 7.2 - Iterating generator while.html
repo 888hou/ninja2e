@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Simple generator - while loop</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function* NinjaGenerator(){
+			  yield "Hatori";
+			  yield "Yoshi";
+			  yield "Hatano";
+			}	
+			
+			var iterator = NinjaGenerator();
+			var res;
+			
+			while(!(res = iterator.next()).done) {
+			  assert(true, res.value)
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chaining promises</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+	</head>
+	<body>
+		<script>
+			Promise.all([getJSON("ninjas.json"), 				//#A
+			             getJSON("mapInfo.json"),
+			             getJSON("plan.json")]).then(function(results)  //#A
+			{
+			  var ninjas = results[0], mapInfo = results[1], plan = results[2]; //#B
+
+			  assert(ninjas && mapInfo && plan, 
+			        "The plan is ready to be set in motion!");		//#B
+			}).catch(function(error){
+			  assert(false, "A problem in carrying out our plan!")
+			});
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Closures and callbacks</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <style>
+  	#box1, #box2 {
+  		width: 200px;
+  		height: 200px;
+  		position: relative;
+  		margin:5;
+  		color: white;
+  		font-weight: bolder;
+  	}
+
+  	#box1{
+  		background-color:blue;
+  	}
+  	#box2{
+  		background-color: red;
+  	}
+  </style>
+</head>
+
+<body>
+	<div id="box1">First Box</div>                                    <!--#1-->
+	<div id="box2">Second Box</div>                                    <!--#1-->
+
+	<script type="text/javascript">
+	  function animateIt(elementId) {
+	    var elem = document.getElementById(elementId);                      //#2
+	    var tick = 0;                                                       //#3
+	    var timer = setInterval(function(){                                 //#4
+	      if (tick < 100) {
+	        elem.style.left = elem.style.top = tick + "px";
+	        tick++;
+	      }
+	      else {
+	        clearInterval(timer);
+	        assert(tick == 100,                                              //#A  
+	               "Tick accessed via a closure.");
+	        assert(elem,
+	               "Element also accessed via a closure.");
+	        assert(timer,
+	               "Timer reference also obtained via a closure." );
+	      }
+	    }, 10);
+	  }
+	  animateIt("box1");                                                     //#B
+	  animateIt("box2");                                                     //#B
+
+	  //#1 Creates the elements that we’re going to animate.
+	  //#2 Inside the animateIt() function, we get a reference to that element.
+	  //#3 Establishes a counter to keep track of animation ticks (steps).
+	  //#4 Creates and starts an interval timer given a callback function that will be invoked every 10 milliseconds. For 100 ticks it will adjust the position of the element.
+	  //#A After 100 ticks we stop the timer and perform tests to assert that we can see all relevant variables needed to perform the animation.
+	  //#B Now that it’s all set up, we set it in motion!
+	</script>
+</body>
+</html>

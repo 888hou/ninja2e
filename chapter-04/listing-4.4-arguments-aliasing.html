@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Arguments aliasing</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+
+    function infiltrate(person) {
+      assert(person === 'gardener',
+        'The person is a gardener');                    //#A
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener');            //#A
+
+      arguments[0] = 'ninja';                           //#B
+
+      assert(person === 'ninja',
+        'The person is a ninja now');                   //#C
+      assert(arguments[0] === 'ninja',
+        'The first argument is a ninja');               //#C
+
+      person = 'gardener';                              //#D
+
+      assert(person === 'gardener',
+        'The person is a gardener once more');          //#E
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener again');      //#E
+    }
+
+    infiltrate("gardener");                             //#F
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rest parameters - works in Firefox</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+ 	<script type="text/javascript">
+ 	  function multiMax(first, ...remainingNumbers){    //#1
+ 	    return first * Math.max.apply(Math, remainingNumbers);
+ 	  }
+ 	  
+ 	  assert(multiMax(3, 1, 2, 3) == 9, 				//#2
+ 	        "3*3=9 (First arg, by largest.)"); 
+
+ 	  //#1 The rest parameters are prefixed with … 
+	  //#2 The function is called just like any other function
+   </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Defining getters and setters</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			"use strict"
+			class Ninja{
+			  constructor(firstName, lastName){
+			    this.firstName = firstName;		
+			    this.lastName = lastName;		
+			  }
+
+			  get fullName(){					
+			    return this.firstName + " " + this.lastName;
+			  }							
+			  
+			  set fullName(value){				
+			    var parts = value.split(" ");
+			    
+			    this.firstName = parts[0];
+			    this.lastName = parts[1];
+			  }							
+			}
+
+			var ninja = new Ninja("Kusunoki", "Masashige");
+
+			assert(ninja.firstName === "Kusunoki", "First name: Kunosoki");
+			assert(ninja.lastName === "Masashige", "Last name: Masashige");	
+
+			assert(ninja.fullName === "Kusunoki Masashige", 
+			      "Correctly accessed the getter");		
+
+			ninja.fullName = "Yagyu Muneyoshi";		
+
+			assert(ninja.firstName === "Yagyu", "First name is now Yagyu");	
+			assert(ninja.lastName === "Muneyoshi", "Last name is now Muneyoshi");
+
+		</script>
+	</body>
+</html>

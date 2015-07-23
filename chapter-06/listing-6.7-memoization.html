@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Memoization</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script type="text/javascript">
+	  function isPrime(value) {
+	    if (!isPrime.answers) isPrime.answers = {};                       //#1
+	    if (isPrime.answers[value] != null) {                               //#2
+	      return isPrime.answers[value];                   
+	    }                                                                   //#2
+	    var prime = value != 1; // 1 can never be prime
+	 
+	    for (var i = 2; i < value; i++) {
+	      if (value % i == 0) {
+	        prime = false;
+	        break;
+	      }
+	    }
+	    return isPrime.answers[value] = prime;                              //#3
+	  }
+	  assert(isPrime(5), "5 is prime!" );                                  //#4
+	  assert(isPrime.answers[5], "The answer was cached!" );               //#4
+
+	//#1 Creates the cache
+	//#2 Checks for cached values
+	//#3 Stores the computed value
+	//#4 Tests that it all works
+	</script>
+</body>
+</html>

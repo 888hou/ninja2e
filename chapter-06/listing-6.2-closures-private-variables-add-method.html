@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Closures and private variables add method</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script type="text/javascript">
+	  function Ninja() {                                  
+	    var feints = 0;                                          
+	    this.getFeints = function(){                       
+	      return feints;                   
+	    };                                                 
+	    this.feint = function(){                           
+	      feints++;                  
+	    };                                                 
+	  }
+	  
+	  var ninja1 = new Ninja();                                 
+	  ninja1.feint();                                               
+	 
+	  var imposter = new Ninja();	
+	  imposter.getFeints = ninja1.getFeints;		//#1		
+	  
+	  assert(imposter.getFeints() == 1,   		        //#2
+	        "We can access the 'private' variable of ninja1 through ninja2!") //#2
+
+	//#1 – Make the getFeints function of ninja1 accessible through the imposter
+	//#2 – Verify that the imposter has access the supposedly private variable of ninja1.  
+	</script>
+</body>
+</html>

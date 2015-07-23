@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dynamicity caveat</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			 function Ninja(){                                           
+			   this.swung = true;
+			 }								    
+			 
+			 var ninja1 = new Ninja();                                    
+
+			 Ninja.prototype.swingSword = function(){                    
+			   return this.swung;
+			 };
+			 assert(ninja1.swingSword(),                                 
+			        "Method exists, even out of order.");		   
+
+			 Ninja.prototype = {					
+			  pierce: function() {
+			    return true;
+			  }
+			 } 								
+
+			 assert(ninja1.swingSword(),					
+			        "Our ninja can still swing!");			
+			 
+			 var ninja2 = new Ninja();						
+			 assert(ninja2.pierce(),"Newly created ninjas can pierce");
+			 assert(!ninja2.swingSword, "But they cannot swing!");		#G
+		</script>
+	</body>
+</html>

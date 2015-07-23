@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+
+    function Ninja() {                                       //#A
+      this.skulk = function() {
+        return this;
+      };
+    }
+
+    var ninja1 = new Ninja();                                //#B
+    var ninja2 = new Ninja();                                //#B
+
+    assert(ninja1.skulk() === ninja1,                        //#C
+      "The 1st ninja is skulking");
+
+    assert(ninja2.skulk() === ninja2,
+      "The 2nd ninja is skulking");                          //#C
+
+  </script>
+</body>
+
+</html>

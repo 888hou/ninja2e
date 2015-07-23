@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Constrctors with return values</title>
+	<meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+    function Ninja() { 					//#A
+      this.skulk = function () {
+        return true;
+      };
+      return 1;						//#B
+    }
+
+    assert(Ninja() === 1,          //#C
+      "Return value honored when not called as a constructor");
+
+    var ninja = new Ninja();				//#D
+
+    assert(typeof ninja === "object",           //#E
+      "Object returned when called as a constructor");
+    assert(typeof ninja.skulk === "function", 	//#E
+      "ninja object has a skulk method");
+
+    var puppet = {  //#F
+      rules: false
+    };
+
+    function Emperor() {				//#G
+      this.rules = true;
+      return puppet;					   //#G
+    }
+
+    var emperor = new Emperor();			//#H
+
+    assert(emperor === puppet,
+      "The emperor is merely a puppet!");  //#I
+    assert(emperor.rules === false,
+      "The puppet does not know how to rule!");  //#J
+
+  </script>
+</body>
+
+</html>

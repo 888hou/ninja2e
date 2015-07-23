@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Method overload</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script>
+	  function addMethod(object, name, fn) {
+		  var old = object[name];                                         //#1
+		  object[name] = function(){                                      //#2 
+		    if (fn.length == arguments.length)                            //#3
+		      return fn.apply(this, arguments)                            //#3
+		    else if (typeof old == 'function')      			//#4
+		      return old.apply(this, arguments);    			//#4
+		  };
+		}
+		//#1 Stores the previous function because we may need to call it if the passed function doesn’t have a matching number of arguments
+		//#2 Creates a new anonymous function that becomes the method
+		//#3 Invokes the passed function if its parameter and argument counts match
+		//#4 Invokes the previous function if passed function isn’t a match
+	</script>
+</body>
+</html>

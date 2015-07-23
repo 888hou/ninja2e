@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Generator sending and receiving data</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function* NinjaGenerator(action) {			//#A
+			  try {
+			    var imposter = yield ("Hatori " + action); //#B
+				        
+			    assert(imposter === "Hanzo", 					//#C
+			          "The generator has been infiltrated"); 
+				        
+			    yield ("Yoshi (" + imposter + ") " + action);	
+
+			    assert(false, "Should not come here!");	
+			  }
+			  catch(e){
+			    assert(true, "We've sent an exception!");	//#D
+			  }       
+			}
+			 
+			var ninjaIterator = NinjaGenerator("skulk"); //#E
+			       
+			var result1 = ninjaIterator.next();
+			assert(result1.value == "Hatori skulk", "Hatori is skulking");
+
+			var result2 = ninjaIterator.next("Hanzo");	  //#F
+			assert(result2.value === "Yoshi (Hanzo) skulk", 
+			       "We have an imposter!"); 				//#G
+
+			ninjaIterator.throw("Error"); 		//#H
+		</script>
+	</body>
+</html>

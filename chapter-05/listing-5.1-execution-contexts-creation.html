@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Execution context creations</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script>
+		function skulk(ninja) {		//#A
+			report(ninja + " skulking");
+		}
+
+		function report(message) {		//#B
+			assert(true, message);
+		}
+
+		skulk("Kuma");			//#C
+		skulk("Yoshi");			//#C
+		//#A – a function that calls another function
+		//#B – a function that reports a message
+		//#C – two function calls from global code
+	</script>
+</body>
+</html>

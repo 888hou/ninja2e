@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calling functions</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+
+    skulk('Hatori');                            //#A
+
+    (function(who){ return who; })('Hatori');   //#A
+
+    ninja.skulk('Hatori');                      //#B
+
+    var ninja = new Ninja('Hatori');            //#C
+
+    skulk.call(ninja, 'Hatori');                //#D
+
+    skulk.apply(ninja, ['Hatori']);             //#E
+
+  </script>
+</body>
+
+</html>

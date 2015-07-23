@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chaining promises</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+	</head>
+	<body>
+		<script>
+			var getNinjasPromise = getJSON("ninjas.json");
+
+			var getOneNinjaPromise = getNinjasPromise.then(function(ninjas){  //#A
+			  return getJSON(ninjas[0].location); //#1 #B 
+			});
+
+			var ninjasPromise = getNinjasPromise.then(function(ninjas){ //#C
+			  return ninjas; //#2	#C
+			});
+
+			assert(getNinjasPromise != getOneNinjaPromise //#D
+			    && ninjasPromise != getOneNinjaPromise, 
+			       "Three different promises!");           //#D
+
+			getOneNinjaPromise.then(function(ninja){			//#E
+			  assert(ninja, "Ninja recieved");			
+			});													//#E
+
+			ninjasPromise.then(function(ninjas){				//#F
+			    assert(ninjas && ninjas.length > 0, "Ninjas recieved"); 
+			});													//#F
+
+		</script>
+	</body>
+</html>
