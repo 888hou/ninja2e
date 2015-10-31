@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Using the rest parameters</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+  "use strict"
+  function multiMax(first, ...remainingNumbers){        //#A
+    var sorted = remainingNumbers.sort(function(a, b){
+       return b - a;
+    });
+    return first * sorted[0];
+  }
+  assert(multiMax(3, 1, 2, 3) == 9, 				            //#B
+        "3*3=9 (First arg, by largest.)");
+
+  //#A The rest parameters are prefixed with …
+  //#B The function is called just like any other function
+  </script>
+  <p>Currently works in Firefox</p>
+</body>
+</html>

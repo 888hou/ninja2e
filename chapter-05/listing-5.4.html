@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Invocation as a function</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	  <script>
+  		function ninja() {			    //#A
+        return this;              //#A
+      }					                  //#A
+
+      function samurai() {		           //#B
+        "use strict";                    //#B
+        return this;	                   //#B
+      }					                         //#B
+
+      assert(ninja() === window,				                //#C
+        "In a 'non-strict' ninja function, " +		      //#C
+        "the context is the global window object");     //#C
+
+      assert(samurai() === undefined,			              //#D
+        "In a 'strict' samurai function, " +		        //#D
+        "the context is undefined");                 	  //#D
+
+      //#A A function in non-strict mode
+      //#B A function in strict mode
+      //#C As expected, a non-strict function has window as the function context
+      //#D The strict function, on the other hand, has an undefined context
+  	</script>
+</body>
+</html>

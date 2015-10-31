@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Illustrating the difference between function and method invocations</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+ <script>
+		function whatsMyContext() {                              //#A
+      return this;						                               //#A
+    }								                                         //#A
+
+    assert(whatsMyContext() === window,			          //#B
+      "Function call on window");                  		//#B
+
+    var getMyThis = whatsMyContext;           		//#C
+
+    assert(getMyThis() === window,			                 //#D
+      "Another function call in window");                //#D
+
+    var ninja1 = {                                  //#E
+      getMyThis: whatsMyContext		                  //#E
+    };						                                  //#E
+
+    assert(ninja1.getMyThis() === ninja1,	        //#F
+      "Working with 1st ninja");                 //#F
+
+    var ninja2 = {                                 //#G
+      getMyThis: whatsMyContext		                 //#G
+    };						                                 //#G
+
+    assert(ninja2.getMyThis() === ninja2,	       //#H
+      "Working with 2nd ninja");                 //#H
+
+    //#A Returns the function context which will allow us to examine the context from outside.
+    //#B Invoking “as a function” sets context to the window object.
+    //#C getMyThis gets a reference to the whatsMyContext function.
+    //#D Invokes the function using the getMyThis variable. Even though we’ve used a variable, the function is still invoked “as a function” and the function context is the window object.
+    //#E A ninja1 object is created with a getMyThis property that reference the whatsMyContext function.
+    //#F Invoking the functions through getMyThis calls it as a method of ninja1. The function context is now ninja1. That’s object orientation!
+    //#G Another object, ninja2 also has a getMyThis property referencing whatsMyContext .
+    //#H Invoking the function as a method of ninja2, shows that the function context is now ninja2!
+	</script>
+</body>
+</html>

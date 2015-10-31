@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Finding array items</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var ninjas = [
+			  {name: "Yagyu", weapon: "shuriken"},
+		      {name: "Yoshi" },
+		      {name: "Kuma", weapon: "wakizashi"}
+			];
+
+			var ninjaWithWakizashi = ninjas.find(function(ninja){
+			  return ninja.weapon == "wakizashi";
+			});
+
+			assert(ninjaWithWakizashi.name == "Kuma" && ninjaWithWakizashi.weapon == "wakizashi",  "Kuma is wielding a wakizashi");
+
+			var ninjaWithKatana = ninjas.find(function(ninja){
+			  return ninja.weapon == "katana";
+			});
+
+			assert(ninjaWithKatana == null,  "We couldn’t find a ninja that wields a katana");
+
+			var armedNinjas = ninjas.filter(function(ninja){
+			  return "weapon" in ninja;
+			});
+
+			assert(armedNinjas.length == 2, "There are two armed ninjas:");
+			assert(armedNinjas[0].name == "Yagyu" && armedNinjas[1].name == "Kuma", "Yagyu and Kuma");
+		</script>
+	</body>
+</html>

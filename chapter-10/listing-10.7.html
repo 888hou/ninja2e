@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mapping arrays</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var ninjas = [
+  				{name: "Yagyu", weapon: "shuriken"},
+     			{name: "Yoshi", weapon: "katana"},
+     			{name: "Kuma", weapon: "wakizashi"}
+			];
+
+			var weapons = ninjas.map(function(ninja){
+  				return ninja.weapon;
+			});
+
+			assert(weapons[0] == "shuriken" 
+			    && weapons[1] == "katana"
+			    && weapons[2] == "wakizashi" 
+			    && weapons.length == 3, "The new array contains all weapons");
+		</script>
+	</body>
+</html>

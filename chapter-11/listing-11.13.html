@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Matching escaped characters in a CSS selector</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var pattern = /^((\w+)|(\\.))+$/;           //#A
+		  var tests = [                               //#B
+		    "formUpdate",
+		    "form\\.update\\.whatever",
+		    "form\\:update",
+		    "\\f\\o\\r\\m\\u\\p\\d\\a\\t\\e",
+		    "form:update"
+		  ];
+		  for (var n = 0; n < tests.length; n++) {         //#C
+		    assert(pattern.test(tests[n]),
+		           tests[n] + " is a valid identifier" );
+		  }
+		</script>
+	</body>
+</html>

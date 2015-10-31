@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Databinding with Object.observe</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<label>Name:</label><input id="nameField"><br/>			<!--#A-->
+		<label>Clan:</label><input id="clanField">					<!--#A-->
+		<div id="greetingContainer"></div>									<!--#B-->
+
+		<script>
+		  var nameField = document.getElementById("nameField");
+      var clanField = document.getElementById("clanField");
+		  var greetingContainer = document.getElementById("greetingContainer");
+
+		  var ninja = { name: "", clan: ""};				//#C
+
+		  Object.observe(ninja, function(changes) {			//#D
+		    greetingContainer.textContent = "Greetings to: " + ninja.name	+ " of " + ninja.clan;		//#D
+		  });								//#D
+
+		  nameField.onkeyup = function() { 			//#E
+			ninja.name = nameField.value;					//#E
+		  };																		//#E
+
+		  clanField.onkeyup = function() { 				//#F
+		    ninja.clan = clanField.value;					//#F
+		  };																			//#F
+
+			//#A Input fields through which will change the values of ninja’s name and clan properties
+			//#B A container where we’ll output a greeting to our ninja
+			//#C A simple ninja object
+			//#D On each change to a ninja property, update our greeting
+			//#E Whenever the nameField receives a key, update the value of the name property
+			//#F Whenever the clanField receives a key, update the value of the clan property
+		</script>
+	</body>
+</html>

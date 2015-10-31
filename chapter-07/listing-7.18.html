@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>Racing promises with Promise.race</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+		<script>
+			Promise.race([getJSON("data/Yoshi.json"),
+              getJSON("data/Hatori.json"),
+              getJSON("data/Hanzo.json")]).then(function(ninja)
+			{
+
+			  assert(ninja, ninja.name + " responded first");
+			}).catch(function(error){
+			  assert(false, "Failure!")
+			});
+		</script>
+	</head>
+	<body></body>
+</html>

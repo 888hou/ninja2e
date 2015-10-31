@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Fixing the constructor property</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function Person(){}
+			Person.prototype.dance = function(){};
+
+			function Ninja(){}
+			Ninja.prototype = new Person();
+
+			Object.defineProperty(Ninja.prototype, "constructor", {
+			  enumerable: false,
+			  value: Ninja,
+			  writable: true
+			});
+
+			var ninja = new Ninja();
+
+			assert(ninja.constructor === Ninja,
+			      "Connection from ninja instances to Ninja constructor reestablished!");
+
+			for(var prop in Ninja.prototype){
+			  assert(prop == "dance", "The only enumerable property is dance!");
+			}
+		</script>
+	</body>
+</html>

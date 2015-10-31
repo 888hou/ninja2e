@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>A closer look at promise order of execution</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			assert(true, "At code start");
+
+			var ninjaDelayedPromise = new Promise(function(resolve, reject){
+			  assert(true, "ninjaDelayedPromise executor");			//#A
+			  setTimeout(function(){						//#B
+			    assert(true, "Resolving ninjaDelayedPromise");		//#B
+			    resolve("Hatori");    						//#B
+			  }, 500);								//#B
+			});
+
+			assert(ninjaDelayedPromise, "After creating ninjaDelayedPromise");
+
+			ninjaDelayedPromise.then(function(ninja) {				//#C
+			  assert(ninja === "Hatori",   					//#C
+			        "ninjaDelayedPromise resolve handled with Hatori");  	//#C
+			});									//#C
+
+			var ninjaImmediatePromise = new Promise(function(resolve, reject){    //#D
+			  assert(true, "ninjaImmediatePromise executor. Immediate resolve."); //#D
+			  resolve("Yoshi");						     	     //#D
+			});									     //#D
+
+			ninjaImmediatePromise.then(function(ninja) {			//#E
+			  assert(ninja === "Yoshi",   					//#E
+			   	    "ninjaImmediatePromise resolve handled with Yoshi");  	//#E
+			});									//#E
+
+			assert(true, "At code end");
+
+			//#A Calling the promise constructor immediately invokes the passed in function
+			//#B We’ll resolve this promise as successful after a 500ms timeout expires
+			//#C The promise then method is used to set up a callback that will be called when the promise resolves, in our case when the timeout expires
+			//#D Create a new promise that gets immediately resolved
+			//#E Sets up a callback to be called when the promise resolves. But, our promise is already resolved!?
+		</script>
+	</body>
+</html>

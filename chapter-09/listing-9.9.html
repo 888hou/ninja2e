@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Observing object changes with Object.observe</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var ninja = {};							       //#A
+			Object.observe(ninja, function(changes) {				       //#B
+			  assert(changes.length === 4, "The changes are batched!");	       //#B
+			  for(var i = 0; i < changes.length; i++) {			       //#B
+			    var change = changes[i];					       //#B
+			    assert(true, change.type + ": '" + change.name  + "'; "            //#B
+			               + "oldValue: '" + change.oldValue + "'; "               //#B
+			               + "currentValue: '" + change.object[change.name] + "'");//#B
+			  }									       //#B
+			});									       //#B
+
+			ninja.name =	"Yoshi";						//#C
+			ninja.weapon = "katana";						//#C
+			delete ninja.name;							//#C
+			ninja.weapon = "shuriken";						//#C
+
+			assert(true, "We have made our changes");				//#D
+
+			//#A Define an object whose changes we’ll observe
+			//#B Use the Object.observe method. Changes are batched and handled at the end of the current step of the event loop
+			//#C Make four consecutive changes to our object
+			//#D Log that we’ve finished making changes
+		</script>
+	</body>
+</html>

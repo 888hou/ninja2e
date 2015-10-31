@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Testing for a specific pattern in string</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+		  function compress(source) {
+		    var keys = {};                                       //#A
+		    source.replace(
+					/([^=&]+)=([^&]*)/g,
+		      function(full, key, value) {                        //#B
+		        keys[key] =
+		          (keys[key] ? keys[key] + "," : "") + value;
+		        return "";
+		      }
+				);
+		    var result = [];                             //#C
+		    for (var key in keys) {
+		      result.push(key + "=" + keys[key]);
+		    }                                            //#C
+		    return result.join("&");                     //#D
+		  }
+		  assert(compress("foo=1&foo=2&blah=a&blah=b&foo=3") ==
+		         "foo=1,2,3&blah=a,b",
+		         "Compression is OK!");
+		</script>
+	</body>
+</html>

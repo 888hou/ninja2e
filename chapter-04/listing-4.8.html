@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tackling default parameters in pre ES6</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    function performAction(ninja, action){
+         action = typeof action == "undefined" ? "skulking" : action;  //#A
+         return ninja + " " + action;
+    }
+
+    assert(performAction("Fuma") === "Fuma skulking",   //#B
+             "The default value is used for Fuma");   //#B
+
+    assert(performAction("Yoshi") === "Yoshi skulking",   //#B
+             "The default value is used for Yoshi");   	  //#B
+    assert(performAction("Hattori") === "Hattori skulking",   //#B
+             "The default value is used for Hattori");   //#B
+
+    assert(performAction("Yagyu", "sneaking") === "Yagyu sneaking",  //#C
+             "Yagyu can do whatever he pleases, even sneak!");     //#C
+    //#A If the action parameter is undefined, we use a default value "skulking", and if it is defined, we simply keep the passed in value.
+    //#B We haven’t passed in a second argument, the value of the action parameter, after executing the first function body statement will default to "skulking"
+    //#C Pass a string as the value of the action parameter; that value will be used throughout the function body.
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arrow functions and object literals</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+<body>
+  <button id="test">Click Me!</button>
+  <script type="text/javascript">
+    assert(this == window, "this == window");		//#A
+    var button = {						//#B
+      clicked: false,
+      click: () => {						//#C
+        this.clicked = true;
+        assert(button.clicked,"The button has been clicked");	//#D
+        assert(this == window, "In arrow function this == window"); //#E
+        assert(window.clicked, "clicked is stored in window");      //#F
+      }
+    }
+
+    var elem = document.getElementById("test");
+    elem.addEventListener("click", button.click);
+    //#A The value of this parameter in global code is the global window object
+    //#B The button object is defined as an object literal
+    //#C Our arrow function is a property of an object literal
+    //#D Test whether the button was clicked
+    //#E The value of this in our arrow function is the global window object
+    //#F clicked is stored on window
+  </script>
+
+
+</body>
+</html>

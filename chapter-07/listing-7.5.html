@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Using generators to generate IDs</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function *IdGenerator(){				//#A
+			  var id = 0;										//#B
+			  while(true){									//#C
+			    yield ++id;									//#C
+			  }															//#C
+			}
+
+			const idIterator = new IdGenerator();		//#D
+
+			var ninja1 = { id: idIterator.next().value };	//#E
+			var ninja2 = { id: idIterator.next().value };	//#E
+			var ninja3 = { id: idIterator.next().value };	//#E
+
+			assert(ninja1.id === 1, "First ninja has id 1");  //#F
+			assert(ninja2.id === 2, "Second ninja has id 2"); //#F
+			assert(ninja3.id === 3, "Third ninja has id 3");  //#F
+
+			//#A Define an IdGenerator generator function
+			//#B A variable that we’ll use to keep track of id’s. Note how the variable cannot be modified from outside of our generator
+			//#C A loop which will generate an infinite sequence of id’s
+			//#D An iterator object through which we’ll request new id’s from the generator
+			//#E Request three new id’s
+			//#F Tests that all went OK
+		</script>
+	</body>
+</html>

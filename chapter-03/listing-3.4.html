@@ -1,24 +1,15 @@
 <html>
   <head>
-    <title>Test Suite</title>
+		<title>A reduced DOM test case for jQuery</title>
     <style>
-      #results li.pass { color: green; }                 
-      #results li.fail { color: red; }                   
+      #test { width: 100px; height: 100px; background: red; }
     </style>
+    <script src="../jquery.js"></script>
     <script>
-      function assert(value, desc) {                           
-        var li = document.createElement("li");                
-        li.className = value ? "pass" : "fail";               
-        li.appendChild(document.createTextNode(desc));        
-        document.getElementById("results").appendChild(li);   
-      }                                                         
-      window.onload = function() {
-        assert(true, "The test suite is running.");     
-        assert(false, "Fail!");                         
-      };
+      $(document).ready(function() {
+        $("#test").append("test");
+      });
     </script>
   </head>
-  <body>
-    <ul id="results"></ul>                               
-  </body>
+  <div id="test"></div>
 </html>

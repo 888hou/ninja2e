@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Function declarations and function expressions</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    function myFunctionDeclaration(){          //#A
+      function innerFunction() {}              //#B
+    }
+
+    var myFunc = function(){};		              //#C
+    myFunc(function(){                          //#D
+      return function(){};                      //#E
+    });
+
+    (function namedFunctionExpression () {	   //#F
+    })(); 					                           //#F
+
+    +function(){}();                           //#G
+    -function(){}();                           //#G
+    !function(){}();                           //#G
+    ~function(){}();                           //#G
+
+    //#A A stand-alone function declaration
+    //#B An inner function declaration
+    //#C A function expression as a part of a variable declaration assignment
+    //#D A function expression as an argument of a function call
+    //#E A function expression as a function return value
+    //#F A named function expression as a part of a function call that will be immediately invoked
+    //#G Function expressions that will be immediately invoked, as arguments to unary operators
+  </script>
+  <p>No output</p>
+</body>
+</html>

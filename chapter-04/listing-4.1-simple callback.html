@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Function delcarations</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+
+  <script src="../assert.js"></script>
+
+  <script>
+    var text = 'Domo arigato!';
+
+    function useless(callback) {  //#A
+      return callback();          //#A
+    }                             //#A
+
+    function getText() {          //#B
+      return text;                //#B
+    }                             //#B
+
+    assert(useless(getText) === text,           //#C
+       "The useless function works! " + text);  //#C
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Iterating over generator results with a while loop</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function* WeaponGenerator(){
+			  yield "Katana";
+			  yield "Wakizashi";
+			}
+
+			var weaponsIterator = WeaponGenerator();				//#A
+			var item;																				//#B
+			while(!(item = weaponsIterator.next()).done) {	//#C
+			  assert(true, item.value)											//#C
+			}																								//#C
+
+			//#A Create an iterator
+			//#B Create a variable in which we’ll store items of the generated sequence
+			//#C On each loop iteration, fetch one value from the generator and output its value. Stop iterating when the generator has no more values to produce.
+		</script>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Autopopulating properties with proxies</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function Folder() {
+			  return new Proxy({}, {
+			    get: function(target, property){
+			       assert(true, "Reading " + property); 	//#A
+			       if(!(property in target)) {			//#B
+			          target[property] = new Folder();		//#B
+			       }						//#B
+			       return target[property];
+			    }
+			  });
+			}
+
+			var rootFolder = new Folder();
+
+			try {
+			  rootFolder.ninjasDir.firstNinjaDir.ninjaFile = "yoshi.txt"; 	//#C
+			  assert(true, "An exception wasn’t raised");			//#D
+			}
+			catch(e){
+			  assert(false, "An exception has occurred");
+			}
+
+			//#A Log all readings to our object
+			//#B If the accessed property does not exist, we create it
+			//#C Whenever a property is accessed, the get trap, which creates a property if it doesn’t exist is activated
+			//#D No exception will be raised
+		</script>
+		<p>Works in Firefox</p>
+	</body>
+</html>

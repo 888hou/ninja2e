@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Examples of function declarations</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    function samurai() {                     //#A
+      return 'I’m a samurai!';              //#A
+    }
+
+    function ninja() {                       //#B
+      function hiddenNinja() {               //#C
+        return 'I’m a ninja!';               //#C
+      }                                      //#C
+
+      return hiddenNinja();
+    }
+    //#A Defines function samurai in the global code
+    //#B Defines function ninja in the global code
+    //#C Defines function hiddenNinja within the ninja function
+    assert(samurai(), "I’m a samurai!");
+    assert(ninja(), "I’m a ninja!");
+  </script>
+</body>
+
+</html>

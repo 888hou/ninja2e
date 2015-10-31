@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Using a generator to generate a sequence of values</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+		"use strict"
+		function* WeaponGenerator(){  		//#A
+			yield "Katana"; 		  		//#B
+     	yield "Wakizashi";		  	//#B
+	  	yield "Kusarigama";			//#B
+		}
+
+		for(let weapon of WeaponGenerator()) {	//#C
+		  assert(weapon, weapon);								//#C
+		}																				//#C
+
+		//#A Define a generator function by putting * after the function keyword
+		//#B Generate individual values by using the new yield keyword
+		//#C Consume the generated sequence with the new for…of loop
+		</script>
+	</body>
+</html>

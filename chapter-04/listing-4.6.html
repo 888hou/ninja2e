@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comparing a lambda function and a function expression</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    var greet = name => "Greetings " + name;                                  //#A
+    assert(greet("Oishi") == "Greetings Oishi", "Oishi is properly greeted");
+
+    var anotherGreet = function(name){		                                    //#B
+      return "Greetings " + name;                                             //#B
+    }						                                                              //#B
+    assert(anotherGreet("Oishi") == "Greetings Oishi",
+         "Again, Oishi is properly greeted");
+
+    //#A Defines a lambda function
+    //#B Defines a function expression
+  </script>
+</body>
+</html>

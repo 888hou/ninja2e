@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Explicitly rejecting promises</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+	</head>
+	<body>
+		<script>
+			var promise = new Promise(function(resolve, reject){
+			  reject("Explicitly reject a promise!");				//#A
+			});
+
+			promise.then(
+			  function() {
+			    assert(false, "Happy path, won't be called!");
+			  },
+			  function(error) { 						//#B
+			    assert(true, "A promise was explicitly rejected!"); 		//#B
+			  }									//#B
+			);
+
+			//#A A promise can be explicitly rejected by calling the passed-in reject function
+			//#B If a promise is rejected, the second, error callback is invoked
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Compiling a runtime regular expression for later use</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<div class="samurai ninja"></div>                            <!--#A-->
+		<div class="ninja samurai"></div>														 <!--#A-->
+		<div></div>																									 <!--#A-->
+		<span class="samurai ninja ronin"></span>                    <!--#A-->
+		<script>
+		  function findClassInElements(className, type) {
+		    var elems = document.getElementsByTagName(type || "*");     //#B
+		    var regex = new RegExp("(^|\\s)" + className + "(\\s|$)");  //#C
+		    var results = [];                                           //#D
+		    for (var i = 0, length = elems.length; i < length; i++){
+		      if (regex.test(elems[i].className)) {                     //#E
+		        results.push(elems[i]);
+					}
+      	}
+		    return results;
+		  }
+		  assert(findClassInElements("ninja", "div").length == 2,
+		         "The right amount of div ninjas was found.");
+		  assert(findClassInElements("ninja", "span").length == 1,
+		         "The right amount of span ninjas was found.");
+		  assert(findClassInElements("ninja").length == 3,
+		         "The right amount of ninjas was found.");
+			//#A Creates test subjects of various elements with various class names
+			//#B Collects elements by type
+			//#C Compiles a regex using the passed class name
+			//#D Stores the results
+			//#E Tests for regex matches
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Using strict mode to avoid arguments aliasing</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script>
+	  "use strict"                                        //#A
+
+    function infiltrate(person){
+      assert(person === 'gardener',			                //#B
+        'The person is a gardener');                    //#B
+      assert(arguments[0] === 'gardener',		            //#B
+        'The first argument is a gardener');            //#B
+
+      arguments[0] = 'ninja';                           //#C
+
+      assert(arguments[0] === 'ninja',			            //#D
+        'The first argument is now a ninja');           //#D
+
+      assert(person === 'gardener',			                //#E
+        'The person is still a gardener');              //#E
+    }
+
+    infiltrate("gardener");                             //#F
+    //#A Enable strict mode
+    //#B The person argument and the first argument start with the same value
+    //#C Change the first argument
+    //#D The first argument is changed
+    //#E The value of the person parameter hasn’t changed
+    </script>
+</body>
+</html>

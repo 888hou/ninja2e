@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Measuring performance with proxies</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function isPrime(number){				//#A
+			  if(number < 2) { return false; }			//#A
+
+			  for(var i = 2; i < number; i++) {		//#A
+				if(number % i == 0) { return false; }		//#A
+			  }							//#A
+
+			  return true;					//#A
+			}							//#A
+
+			isPrime = new Proxy(isPrime, {			//#B
+			  apply: function(target, thisArg, args){		//#C
+			    console.time("isPrime");			//#D
+
+			    var result = target.apply(thisArg, args);	//#E
+
+			    console.timeEnd("isPrime");			//#F
+
+			    return result;
+			  }
+			});
+
+			isPrime(1299827);					//#G
+
+			//#A Define a primitive implementation of the isPrime function
+			//#B Wrap the isPrime function within a proxy
+			//#C Provide an apply trap that will be called whenever a proxy is called as a function.
+			//#D Start a timer called "isPrime"
+			//#E Invokes the target function
+			//#F Stops the timer and outputs the result
+			//#G Calls the function. The call works the same as if we had called the original function
+		</script>
+		<p>Outputs to the console</p>
+		<p>Works in Firefox</p>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Approximate private variables with closure</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script>
+	  function Ninja() {
+      var feints = 0;                                          //#A
+      this.getFeints = function(){                       	    //#B
+        return feints;                                         //#B
+      };                                                	    //#B
+      this.feint = function(){                           	    //#C
+        feints++;                  				    //#C
+      };                                                 	    //#C
+    }
+    var ninja1 = new Ninja();
+    assert(ninja1.feints === undefined,                            //#D
+           "And the private data is inaccessible to us.");         //#D
+    ninja1.feint();                                                //#E
+    assert(ninja1.getFeints() == 1,                                //#F
+           "We're able to access the internal feint count.");      //#F
+
+    var ninja2 = new Ninja();						//#G
+    assert(ninja2.getFeints() == 0,
+           "The second ninja object gets it’s own feints variable.");    //#I
+
+    //#A Declares a variable inside the constructor. Because the scope of the variable is limited to inside the constructor, it’s a “private” variable.
+    //#B An accessor method for the feints counter.
+    //#C The increment method for the value. Because the value is private, no one can screw it up behind our backs; they are limited to the access that we give them via methods.
+    //#D Verifies that we can’t get at the variable directly.
+    //#E Calls the feint method, which increments the count of the number of times that our ninja has feinted.
+    //#F Tests that the increment was performed
+    //#G When we create a new ninja2 object with the Ninja constructor, the ninja2 objects gets its own feints variable
+	</script>
+</body>
+</html>

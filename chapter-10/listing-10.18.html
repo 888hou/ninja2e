@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Simple prototypes</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var directory = new Map();
+
+			directory.set("Yoshi", "+81 26 6462");
+			directory.set("Kuma", "+81 52 2378 6462");
+			directory.set("Hiro", "+81 76 277 46");
+
+			for(var item of directory){
+  				assert(item[0], "Key:" + item[0]);
+  				assert(item[1], "Value:" + item[1]);
+			}
+
+			for(var key of directory.keys()){
+  				assert(key, "Key:" + key);
+  				assert(directory.get(key), "Value:" + directory.get(key));
+			}
+
+			for(var value of directory.values()){
+  				assert(value, "Value:" + value);
+			}
+		</script>
+	</body>
+</html>

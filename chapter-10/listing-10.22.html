@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Intersection of sets</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			var ninjas = new Set(["Kuma", "Hattori", "Yagyu"]);
+			var samurai = new Set(["Hattori", "Oda", "Tomoe"]);
+
+			var ninjaSamurais = new Set(
+			  [...ninjas].filter(function(ninja){
+			    return samurai.has(ninja);
+			  })
+			);
+
+			assert(ninjaSamurais.size == 1, "There’s only one ninja samurai");
+			assert(ninjaSamurais.has("Hattori"), "Hattori is his name");
+		</script>
+	</body>
+</html>

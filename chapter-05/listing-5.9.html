@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binding a specific context to a function</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+<body>
+	<button id="test">Click Me!</button>                   <!--#A-->
+  <script type="text/javascript">
+    function Button(){                                   //#B
+      this.clicked = false;
+      this.click = function(){                                   //#C
+        this.clicked = true;
+        assert(button.clicked,"The button has been clicked");          //#D
+      }
+    }
+    var button = new Button();					                               //#E
+    var elem = document.getElementById("test");                        //#F
+    elem.addEventListener("click", button.click);                      //#F
+    //#A A button element to which we’ll assign event handler.
+    //#B A constructor function which creates objects that retain state regarding our button. With it, we’ll track whether the button has been clicked or not.
+    //#C Declares the method that we’ll use as the click handler. Because it’s a method of the object, we use this within the function to get a reference to the object.
+    //#D Within the method, we test that the button state has been correctly changed after a click.
+    //#E Creates an instance that will track whether the button was clicked
+    //#F Establishes the click handler on the button.
+  </script>
+</body>
+</html>

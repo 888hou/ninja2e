@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Logging without proxies</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function Ninja() {
+		    var _skillLevel = 0;
+
+		    Object.defineProperty(this, 'skillLevel', {
+		      get: function() {
+		        assert(true, "skillLevel get method is called");	//#A
+		        return _skillLevel;
+		      },
+		      set: function(value){
+		        assert(true, "skillLevel set method is called");	//#B
+		        _skillLevel = value;
+		      }
+		    });
+		  }
+
+		  var ninja = new Ninja();
+		  ninja.skillLevel; 			//#C
+		  ninja.skillLevel = 4; 		//#D
+
+		//#A We log whenever the skillLevel property is read
+		//#B And whenever the skillLevel property is written to.
+		//#C Read the skillLevel property and trigger the get method
+		//#D Write to the skillLevel property and trigger the set method
+		</script>
+	</body>
+</html>

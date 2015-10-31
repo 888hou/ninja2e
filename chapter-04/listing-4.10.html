@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Referencing previous parameters</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+
+<body>
+  <script>
+  function performAction(ninja, action = "skulking",
+                         message = ninja + " " + action) { //#A
+    return message;
+  }
+
+  assert(performAction("Yoshi"), "Yoshi skulking");
+  //#A We can place arbitrary expressions as default parameter values, in the process even referencing previous function parameters.
+  </script>
+  <p>Currently works in Firefox</p>
+</body>
+</html>

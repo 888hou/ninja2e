@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<title>Creating a JSON promise</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script>
+			function getJSON(url) {
+  			return new Promise(function (resolve, reject) { 	//#A
+    			var request = new XMLHttpRequest();  			//#B
+			    request.open("GET", url);	      			//#C
+
+			    request.onload = function () {	      			//#D
+			      try {
+			        if(this.status == 200 ){				//#E
+			          resolve(JSON.parse(request.response));		//#F
+			        }
+	            else{
+			             reject(this.status + " " + this.statusText); 	//#G
+			        }							//#G
+			      }							//#G
+			      catch(e){						//#G
+			        reject(e.message);					//#G
+			      }							//#G
+			    };
+
+			    request.onerror = function () {			//#H
+			      reject(this.status + " " + this.statusText);	//#H
+			    };							//#H
+
+			    request.send();						//#I
+			  });
+			}
+
+			getJSON("ninjas.json").then(function(ninjas){		//#J
+			  assert(ninjas, "Ninjas obtained!");			//#J
+			}).catch(function(e){					//#J
+			  assert(false, "Shouldn’t be here:" + e);			//#J
+			});								//#J
+
+			//#A Create and return a new promise
+			//#B Creates an XMLHttpRequest object
+			//#C Initializes the request
+			//#D Registers an onload handler which will be called if the server has responded
+			//#E Even if the server has responded, it doesn’t mean that everything went as we expected. Only use the result if the server responds with status 200 (everything OK)
+			//#F Try to parse the JSON string, if it succeeds, resolve the promise as successful with the parsed object
+			//#G If the server responds with a different status code, or if there’s an exception parsing the JSON string, reject the promise
+			//#H If there’s an error while communicating with the server, reject the promise
+			//#I Send the request
+			//#J Use the promise created by the getJSON function to register a resolve and reject callbacks
+		</script>
+	</head>
+	<body>
+		<p>Has to be executed on a server (e.g MAMP, WAMP)</p>
+	</body>
+</html>

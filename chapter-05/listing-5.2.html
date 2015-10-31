@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>The arguments object aliases function parameters</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+  <script>
+    function infiltrate(person) {
+      assert(person === 'gardener',			                //#A
+        'The person is a gardener');                    //#A
+      assert(arguments[0] === 'gardener',		            //#A
+        'The first argument is a gardener');            //#A
+
+      arguments[0] = 'ninja';                           //#B
+
+      assert(person === 'ninja',
+        'The person is a ninja now');                   //#C
+      assert(arguments[0] === 'ninja',			            //#C
+        'The first argument is a ninja');               //#C
+
+      person = 'gardener';                              //#D
+
+      assert(person === 'gardener',
+        'The person is a gardener once more');          //#E
+      assert(arguments[0] === 'gardener',		            //#E
+        'The first argument is a gardener again');      //#E
+    }
+
+    infiltrate("gardener");                             //#F
+
+    //#A The person parameter has the value 'gardener' sent as a first argument
+    //#B Change the value of the first argument
+    //#C Changing the arguments object will also change the matching parameter
+    //#D Changes the value of the person parameter
+    //#E The alias works both ways!
+    //#F Calls the infiltrate function with the argument “gardener”
+  </script>
+</body>
+</html>

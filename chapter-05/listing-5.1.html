@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Using the arguments parameter</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+  <script>
+    function whatever(a, b, c){                  //#A
+      assert(a === 1, 'The value of a is 1');    //#B
+      assert(b === 2, 'The value of b is 2');    //#B
+      assert(c === 3, 'The value of c is 3');    //#B
+
+      assert(arguments.length === 5,		         //#C
+        'We’ve passed in 5 parameters');         //#C
+
+      assert(arguments[0] === a,		             //#D
+        'The first argument is assigned to a');  //#D
+      assert(arguments[1] === b,		             //#D
+        'The second argument is assigned to b'); //#D
+      assert(arguments[2] === c,		             //#D
+        'The third argument is assigned to c');  //#D
+
+      assert(arguments[3] === 4,		             //#E
+        'We can access the fourth argument');    //#E
+      assert(arguments[4] === 5,		             //#E
+        'We can access the fifth argument');     //#E
+    }
+    whatever(1,2,3,4,5);                         //#F
+
+    //#A Declare a function with three parameters: a, b, and c
+    //#B Below we’ve called this function with arguments and here we test them for correct values
+    //#C In all, the function was passed 5 arguments
+    //#D Checks that the first three arguments match the function parameters
+    //#E Checks that the excess arguments can be accessed through the arguments parameter
+    //#F Call a function with 5 arguments
+  </script>
+</body>
+</html>

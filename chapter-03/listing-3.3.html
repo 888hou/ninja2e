@@ -1,17 +1,13 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<style>
-		  #test { width: 100px; height: 100px; background: red; }
-		</style>
-
-		<script src="../jquery.js"></script>
-		<script>
-		  $(document).ready(function() {
-		    $("#test").append("test");
-		  });
-		</script>
-	</head>
-	<body>
-		<div id="test"></div>
-	</body>
+  <head>
+		<title>Counting Ninjas and conditional breakpoints</title>
+    <script>
+      for(var i = 0; i < 100; i++){
+        console.log("Ninjas: " + i); //#A
+      }
+    </script>
+  </head>
+  <body>Outputs to the console (press F12)</body>
 </html>
+<!--#A What if we wanted to explore the application state when counting the 50th ninja? Should we have to tediously go through the first 49?-->

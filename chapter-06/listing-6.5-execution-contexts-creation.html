@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Execution context creations</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+  <script>
+    function skulk(ninja) {              //#A
+      report(ninja + " skulking");
+    }
+
+    function report(message) {           //#B
+      assert(true,message);
+    }
+
+    skulk("Kuma");                      //#C
+    skulk("Yoshi");                     //#C
+  </script>
+</body>
+</html>

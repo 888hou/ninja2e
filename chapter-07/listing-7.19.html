@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<title>Combining generators and promises</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="getJSON.js"></script>
+		<script>
+		 "use strict"
+			async(function*(){
+			  try {
+			    var ninjas = yield getJSON("data/ninjas.json");
+			    var missions = yield getJSON(ninjas[0].missionsLocation);
+			    var missionDescription = yield getJSON(missions[0].detailsUrl);
+
+					assert(true, "All ready!");
+			  }
+			  catch(e) {
+					assert(false, "We weren't able to get mission details");
+			  }
+			});
+
+			function async(generator) {
+			  var iterator = generator();
+
+			  function handle(iteratorResult) {
+			    if(iteratorResult.done) { return; }
+
+			    var iteratorValue = iteratorResult.value;
+
+			    if(iteratorValue instanceof Promise) {
+				      iteratorValue.then(function(res) {
+				          handle(iterator.next(res));
+				      }).catch(function(err){
+				        iterator.throw(err);
+				    	});
+				    }
+					}
+
+					try {
+			    	handle(iterator.next());
+			  	}
+			  	catch (e) { iterator.throw(e); }
+			}
+		</script>
+	</head>
+	<body>Has to be run on a server (e.g MAMP or WAMP)</body>
+</html>

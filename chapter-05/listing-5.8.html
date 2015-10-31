@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Constructors explicitly returning object values</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+	<script>
+    var puppet = {  				//#A
+      rules: false					//#A
+    };							        //#A
+
+    function Emperor() {				   //#B
+      this.rules = true;				   //#B
+      return puppet;					   //#B
+    }
+
+    var emperor = new Emperor();				//#C
+
+    assert(emperor === puppet,				//#D
+      "The emperor is merely a puppet!");  		//#D
+    assert(emperor.rules === false,			//#D
+      "The puppet does not know how to rule!");  	//#D
+    //#A Create our own object with a known property.
+    //#B Returns that object despite initializing the object passed as this.
+    //#C Invoke the function as a constructor.
+    //#D Tests show that the object returned by the constructor is assigned to the variable emperor (and not the object created by the new expression).
+	</script>
+</body>
+</html>

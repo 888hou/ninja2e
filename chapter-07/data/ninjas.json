@@ -1,0 +1,12 @@
+[
+	{
+		"name": "Hatori",
+		"location": "data/hatori.json",
+		"missionsLocation": "data/missions.json"
+	},
+	{
+		"name": "Yoshi",
+		"location": "data/yoshi.json",
+		"missionsLocation": "data/missions.json"
+	}
+]

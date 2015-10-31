@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Throwing exceptions to a generator</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+			function* NinjaGenerator() {
+			  try{
+			    yield "Hatori";
+			    assert(false, "Oo, an expected exception didn’t occur");	//#A
+			  }
+			  catch(e){								//#B
+			    assert(e === "Catch this!", "Aha! We caught an exception");	//#B
+			  } 									//#B
+			   }
+			 
+			var ninjaIterator = NinjaGenerator();
+			       
+			var result1 = ninjaIterator.next();				//#C
+			assert(result1.value == "Hatori", "We got Hatori");		//#C
+
+			ninjaIterator.throw("Catch this!");				//#D
+			//#A This assert should not be executed!
+			//#B Catches exceptions and tests whether we’ve received the expected one
+			//#C Pull one value from the generator
+			//#D Throw an exception to the generator
+		</script>
+	</body>
+</html>

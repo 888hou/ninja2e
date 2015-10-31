@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Execution context creations</title>
+  <meta charset="utf-8">
+  <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+</head>
+
+<body>
+  <script>
+    "use strict"
+    const globalNinja = "Yoshi";          //#A
+
+    function reportActivity(){
+      const functionActivity = "jumping";       //#B
+  
+      for(let i = 1; i < 3; i++) {            //#C
+          let forMessage = globalNinja + " " + functionActivity;       //#C
+          assert(forMessage == "Yoshi jumping",         //#D  
+                 "Yoshi is jumping within the for block");          //#D
+          assert(i, "Current loop counter:" + i);       //#D
+      } 
+      
+      assert(typeof i == "undefined" && typeof forMessage == "undefined", //#E
+            "Loop variables not accessible outside the loop");     //#E
+  }
+
+  reportActivity();
+  assert(typeof functionActivity == "undefined"             //#F
+      && typeof i == "undefined" && typeof forMessage == "undefined",    //#F
+      "We cannot see function variables outside of a function");         //#F 
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>A simple callback example</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    var text = 'Domo arigato!';
+
+    function useless(callback) {	//#A
+      return callback();		      //#A
+    }					                    //#A
+
+    function getText() {		      //#B
+      return text;			          //#B
+    }					                    //#B
+
+    assert(useless(getText) === text, 			        //#C
+           "The useless function works! " + text);	//#C
+    //#A Defines a function that takes a callback function and immediately invokes it
+    //#B Defines a simple function that returns a global variable
+    //#C Call our useless function with the getText function as a callback
+  </script>
+</body>
+</html>
