@@ -11,27 +11,27 @@
 <body>
   <script>
 	  "use strict"
-    function performAction(ninja, action = "skulking"){  	//#A
-     return ninja + " " + action;
-  	}
+	    function performAction(ninja, action = "skulking"){  	//#A
+	     return ninja + " " + action;
+	  	}
 
-	  assert(performAction("Fuma") === "Fuma skulking",     	//#B
-	         "The default value is used for Fuma");          	//#B
+		  assert(performAction("Fuma") === "Fuma skulking",     	//#B
+		         "The default value is used for Fuma");          	//#B
 
-	  assert(performAction("Yoshi") === "Yoshi skulking",   	//#B
-	         "The default value is used for Yoshi");   	     	//#B
+		  assert(performAction("Yoshi") === "Yoshi skulking",   	//#B
+		         "The default value is used for Yoshi");   	     	//#B
 
-	  assert(performAction("Hattori") === "Hattori skulking",   //#B
-	         "The default value is used for Hattori");            //#B
+		  assert(performAction("Hattori") === "Hattori skulking",   //#B
+		         "The default value is used for Hattori");            //#B
 
-	  assert(performAction("Yagyu", "sneaking") === "Yagyu sneaking",  //#C
-	         "Yagyu can do whatever he pleases, even sneak!");         //#C
+		  assert(performAction("Yagyu", "sneaking") === "Yagyu sneaking",  //#C
+		         "Yagyu can do whatever he pleases, even sneak!");         //#C
 
-	//#A In ES6, it is possible to assign a value to a function parameter
-  //#B If the value is not passed in, the default value is used
-	//#C The passed value is used
+		//#A In ES6, it is possible to assign a value to a function parameter
+	    //#B If the value is not passed in, the default value is used
+		//#C The passed value is used
   </script>
-	<p>Currently works in Firefox</p>
+	<p>December 2015, Works in Firefox</p>
 </body>
 
 </html>
