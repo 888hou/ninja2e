@@ -1,40 +1,45 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Creating proxies</title>
+		<title>Defining getters and setters with Object.defineProperty</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			var emperor = { name: "Komei" }; 				//#A
-			var representative = new Proxy(emperor, {			//#B
-			  get: function(target, key){				//#C
-			    assert(true, "Reading " + key + " through a proxy"); //#C
-			    return key in target ? target[key] 			//#C
-			                         : "Don’t bother the emperor!"   //#C
-			  },								//#C
-			  set: function(target, key, value){			//#C
-			    assert(true, "Writing " + key + " through a proxy"); //#C
-			    target[key] = value;					//#C
-			  }								//#C
-			});
+			function Ninja() {							//#A
+			    var _skillLevel = 0;						//#B
 
-			assert(emperor.name === "Komei", "The emperor’s name is Komei"); //#D
-			assert(representative.name === "Komei", 				//#D
-			      "You can get the name property through a proxy");		//#D
+			    Object.defineProperty(this, 'skillLevel', {			//#C
+			      get: function() {						//#D
+			        assert(true, "The get method is called");			//#D
+			        return _skillLevel;						//#D
+			      },								//#D
+			      set: function(value){					       //#E
+			        assert(true, "The set method is called");			//#E
+			        _skillLevel = value;						//#E
+			      }									//#E
+			    });
+			  }
 
-			assert(emperor.nickname === undefined, 				//#E
-			      "The emperor doesn’t have a nickname ");			//#E
-			assert(representative.nickname === "Don’t bother the emperor!",  //#F
-			      "The proxy jumps in when we make inproper requests");	//#F
+			  var ninja = new Ninja();						//#F
 
-			representative.nickname = "Tenno";						//#G
-			assert(emperor.nickname === "Tenno", 				//#G
-			      "The emperor now has a nickname");				//#G
-			assert(representative.nickname === "Tenno", 			//#G
-			      "The nickname is also accessible through the proxy");	//#G
+			  assert(typeof ninja._skillLevel == "undefined", 			//#G
+			         "We cannot access a 'private' property");			//#G
+			  assert(ninja.skillLevel == 0, "The getter works fine!");		//#G
+
+			  ninja.skillLevel = 10;						//#H
+			  assert(ninja.skillLevel == 10, "The value was updated");		//#H
+
+			/*#A Define a constructor function
+			#B Define a ‘private’ variable that will be accessible through function closures 
+			#C Use the built-in Object.defineProperty to define a skillLevel property
+			#D A get method that will be called whenever we read the skillLevel property
+			#E A set method that will be called whenever we assign a value to the skillLevel property
+			#F Create a new Ninja instance
+			#G The private variable is not accessible directly, but through the skillLevel getter
+			#H The set method is implicitly called when assigning to the skillLevel property*/
+
 		</script>
-		<p>Works in Firefox</p>
 	</body>
 </html>

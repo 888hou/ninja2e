@@ -1,3 +1,5 @@
-# Secrets of the JavaScript Ninja, second edition code #
+# NINJA2 #
 
-This repository contains the code for the Secrets of the JavaScript book.
+### What is this repository for? ###
+
+Working code for Secrets of the JavaScript Ninja, 2nd Edition

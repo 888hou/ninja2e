@@ -14,8 +14,8 @@
       cache: {},                                               //#B
       add: function(fn) {                                      //#C
         if (!fn.id) {                              		         //#C
-          fn.id = store.nextId++;                  		         //#C
-          store.cache[fn.id] = fn;      			                 //#C
+          fn.id = this.nextId++;                  		         //#C
+          this.cache[fn.id] = fn;      			                  //#C
           return true;					                               //#C
         }                                          		         //#C
       }							                                           //#C

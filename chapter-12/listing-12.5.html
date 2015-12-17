@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Exporting from a ninja.js module</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+		<script src="traceur.js"></script>
+		<script src="es6-module-loader.js"></script>
+	</head>
+	<body>
+		<script>
+		assert(true, "Has to be run on a server");
+		System.import("ninja.js").then(function(module){
+			assert(module.sayHiToNinja() == "Hello Yoshi", "Accessed module function");
+		});
+		</script>
+	</body>
+</html>

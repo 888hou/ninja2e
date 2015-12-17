@@ -1,45 +1,49 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Measuring performance with proxies</title>
+		<title>Creating proxies with the Proxy constructor</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function isPrime(number){				//#A
-			  if(number < 2) { return false; }			//#A
+			var emperor = { name: "Komei" }; 				//#A
+			var representative = new Proxy(emperor, {			//#B
+			  get: function(target, key){				//#C
+			    assert(true, "Reading " + key + " through a proxy"); //#C    
+			    return key in target ? target[key] 			//#C
+			                         : "Don’t bother the emperor!"   //#C
+			     },								//#C
+			  set: function(target, key, value){			//#C
+			    assert(true, "Writing " + key + " through a proxy"); //#C
+			    target[key] = value;					//#C
+			  }								//#C
+			});							
 
-			  for(var i = 2; i < number; i++) {		//#A
-				if(number % i == 0) { return false; }		//#A
-			  }							//#A
+			assert(emperor.name === "Komei", "The emperor’s name is Komei"); //#D
+			assert(representative.name === "Komei", 				//#D
+			      "We can get the name property through a proxy");		//#D
 
-			  return true;					//#A
-			}							//#A
+			assert(emperor.nickname === undefined, 				//#E
+			      "The emperor doesn’t have a nickname ");			//#E
+			assert(representative.nickname === "Don’t bother the emperor!",  //#F
+			      "The proxy jumps in when we make inproper requests");	//#F
 
-			isPrime = new Proxy(isPrime, {			//#B
-			  apply: function(target, thisArg, args){		//#C
-			    console.time("isPrime");			//#D
+			representative.nickname = "Tenno";					//#G
+			assert(emperor.nickname === "Tenno", 				//#G
+			      "The emperor now has a nickname");				//#G
+			assert(representative.nickname === "Tenno", 			//#G
+			      "The nickname is also accessible through the proxy");	//#G
 
-			    var result = target.apply(thisArg, args);	//#E
+			/*#A The emperor is our target object
+			#B Create a proxy with the Proxy constructor that takes in the object the proxy wraps
+			#C And an object with traps that will be called when reading (get) and writing (set) to properties 
+			#D Access the name property both through the emperor object and through the proxy object
+			#E Accessing a non-existing property directly on the object returns undefined
+			#F Accessing a property through a proxy detects that the object doesn’t exist in our target object, so a warning message is returned.
+			#G Add a property through the proxy. The property is accessible both through the target object and through the proxy.*/
 
-			    console.timeEnd("isPrime");			//#F
-
-			    return result;
-			  }
-			});
-
-			isPrime(1299827);					//#G
-
-			//#A Define a primitive implementation of the isPrime function
-			//#B Wrap the isPrime function within a proxy
-			//#C Provide an apply trap that will be called whenever a proxy is called as a function.
-			//#D Start a timer called "isPrime"
-			//#E Invokes the target function
-			//#F Stops the timer and outputs the result
-			//#G Calls the function. The call works the same as if we had called the original function
 		</script>
-		<p>Outputs to the console</p>
 		<p>Works in Firefox</p>
 	</body>
 </html>

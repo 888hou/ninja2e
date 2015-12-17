@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Augmenting modules</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<script>
+		var MouseCounterModule = function(){
+		  var numClicks = 0;
+		  var handleClick = function(){
+		    alert(++numClicks);
+		  };
+		  
+		  return {
+		    countClicks: function(){					
+		      document.addEventListener("click", handleClick);
+		    }
+		  };
+		}();
+
+		(function(module) {
+		  var numScrolls = 0;
+		  var handleScroll = function(){
+		    alert(++numScrolls);
+		  }
+
+		  module.countScrolls = function(){
+		    document.addEventListener("wheel", handleScroll);
+		  };
+		})(MouseCounterModule);
+
+		assert(typeof MouseCounterModule.countClicks == "function",
+		       "We can access initial module functionality");
+
+		assert(typeof MouseCounterModule.countScrolls == "function",
+		       "We can access augmented module functionality");	
+
+		</script>
+	</body>
+</html>

@@ -1,40 +1,39 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Defining computed properties</title>
+		<title>Defining getters and setters with ES6 classes</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			var shogun = {
-			  name: "Yoshiaki",
-			  clan: "Ashikaga",
-			  get fullTitle(){						//#A
-			    return this.name + " " + this.clan;			//#A
-			  },								//#A
-			  set fullTitle(value) {					//#B
-			    var segments = value.split(" ");			//#B
-			    this.name = segments[0];				//#B
-			    this.clan = segments[1];				//#B
-			  }								//#B
-			};
+			"use strict";
+			class NinjaCollection {
+			  constructor(){
+			    this.ninjas = ["Yoshi", "Kuma", "Hattori"];
+			  }
+			  get firstNinja(){				 //#A
+			    assert(true, "Getting firstNinja");    //#A
+			    return this.ninjas[0];			 //#A
+			  } 					 	 //#A
+			  set firstNinja(value){			   //#A
+			    assert(true, "Setting firstNinja");      //#A
+			    this.ninjas[0] = value;			   //#A
+			  }
+			}
+			var ninjaCollection = new NinjaCollection();
 
-			assert(shogun.name === "Yoshiaki", "Our shogun Yoshiaki");	//#C
-			assert(shogun.clan === "Ashikaga", "Of clan Ashikaga");		//#C
-			assert(shogun.fullTitle == "Yoshiaki Ashikaga", 			//#C
-			       "The full name is now Yoshiaki Ashikaga");			//#C
+			assert(ninjaCollection.firstNinja == "Yoshi", 	
+			       "Yoshi is the first ninja");		
 
-			shogun.fullTitle = "Ieyasu Tokugawa";				//#D
-			assert(shogun.name === "Ieyasu", "Our shogun Ieyasu");		//#D
-			assert(shogun.clan === "Tokugawa", "Of clan Tokugawa");		//#D
-			assert(shogun.fullTitle == "Ieyasu Tokugawa", 			//#D
-			       "The full name is now Ieyasu Tokugawa");			//#D
+			ninjaCollection.firstNinja = "Hachi";		
+				
+			assert(ninjaCollection.firstNinja == "Hachi"	
+			    && ninjaCollection.ninjas[0] ==  "Hachi",	
+			       "Now Hachi is the first ninja");
 
-			 //#A Defines a gettter method on a fullTitle property of an object literal that calculates the value by concatenating two object properties
-			 //#B Defines a settter method on a fullTitle property of an object literal that splits the passed in value and updates two standard properties.
-			 //#C The name and clan properties are normal properties whose values are directly obtained. Accessing the fullTitle property calls the get method which computes the value.
-			 //#D Assigning a value to the fullTitle property calls the set method which computes and assigns new values to the name and clan properties.
+			//#A Defines a getter and a setter within an ES6 class
+
 		</script>
 	</body>
 </html>

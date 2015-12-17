@@ -1,56 +1,39 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Defining getters and setters with Object.defineProperty</title>
+		<title>Defining getters and setters in object literals</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function Ninja() {							//#A
-		    var _skillLevel = 0;						//#B
+			var ninjaCollection = {
+			  ninjas: ["Yoshi", "Kuma", "Hattori"],
+			  get firstNinja(){				 //#A
+			    assert(true, "Getting firstNinja");    //#A
+			    return this.ninjas[0];			 //#A
+			  }, 					 //#A
+			  set firstNinja(value){			   //#B
+			    assert(true, "Setting firstNinja");      //#B
+			    this.ninjas[0] = value;			   //#B
+			  }						   //#B
+			};
 
-		    Object.defineProperty(this, 'skillLevel', {			//#C
-		      get: function() {						//#D
-		        assert(true, "The get method is called");			//#D
-		        return _skillLevel;						//#D
-		      },								//#D
-		      set: function(value){					       //#E
-		        assert(true, "The set method is called");			//#E
-		        if(!Number.isInteger(value)){					//#E
-		          throw new TypeError("Skill level should be a number");	//#E
-		        }								//#E
-		        _skillLevel = value;						//#E
-		      }									//#E
-		    });
-		  }
+			assert(ninjaCollection.firstNinja == "Yoshi", 	//#C
+			       "Yoshi is the first ninja");		//#C
 
-		  var ninja = new Ninja();						//#F
+			ninjaCollection.firstNinja = "Hachi";		//#D
+				
+			assert(ninjaCollection.firstNinja == "Hachi"	//#E
+			    && ninjaCollection.ninjas[0] ==  "Hachi",	//#E
+			       "Now Hachi is the first ninja");		//#E
 
-		  assert(typeof ninja._skillLevel === "undefined", 			//#G
-		         "We cannot access a 'private' property");			//#G
-		  assert(ninja.skillLevel === 0, "The getter works fine!");		//#G
+			/*#A Defines a getter method for the firstNinja property that simply returns the first ninja in our collection and logs a message
+			#B Defines a setter method for the firstNinja property that modifies the first ninja in our collection and logs a message
+			#C Access the firstNinja property, as if it were a standard object property
+			#D Modify the firstNinja property, as if were a standard object property
+			#E Test that the property modification is stored*/
 
-		  ninja.skillLevel = 10;						//#H
-		  assert(ninja.skillLevel === 10, "The value was updated");		//#H
-
-		  try {									//#I
-		    ninja.skillLevel = "Great";					//#I
-		    assert(false, "Should not be here");				//#I
-		  }									//#I
-		  catch(e){								//#I
-		    assert(true, "Setting a non-integer value throws an exception");//#I
-		  }									//#I
-
-		//#A Define a constructor function
-		//#B Define a ‘private’ variable that will be accessible through function closures
-		//#C Use the built-in Object.defineProperty to define a skillLevel property
-		//#D A get method that will be called whenever we read the skillLevel property.
-		//#E A set method that will be called whenever we assign a value to the skillLevel property.
-		//#F Create a new Ninja instance
-		//#G The private variable is not accessible directly, but through the skillLevel getter method (we access it just like it’s any other property).
-		//#H The set method is implicitly called when assigning to the skillLevel property
-		//#I If we try to write a non-integer value to our skillLevel property, the setter throws an exception.
 		</script>
 	</body>
 </html>

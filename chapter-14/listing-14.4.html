@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Long running task</title>
+		<link rel="stylesheet" href="../assert.css">
+		<script src="../assert.js"></script>
+	</head>
+	<body>
+		<table><tbody></tbody></table>
+		<script>
+		  var tbody = document.querySelector("tbody");
+		  for (var i = 0; i < 60000; i++) {
+		    var tr = document.createElement("tr");
+		    for (var t = 0; t < 6; t++) {
+		      var td = document.createElement("td");
+		      td.appendChild(document.createTextNode(i + "," + t));
+		      tr.appendChild(td);
+		    }
+		    tbody.appendChild(tr);
+		  }
+
+			assert(true, "Creates a large table");
+		</script>
+	</body>
+</html>

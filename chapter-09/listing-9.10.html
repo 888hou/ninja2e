@@ -1,40 +1,44 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Databinding with Object.observe</title>
+		<title>Measuring performance with proxies</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
-		<label>Name:</label><input id="nameField"><br/>			<!--#A-->
-		<label>Clan:</label><input id="clanField">					<!--#A-->
-		<div id="greetingContainer"></div>									<!--#B-->
-
 		<script>
-		  var nameField = document.getElementById("nameField");
-      var clanField = document.getElementById("clanField");
-		  var greetingContainer = document.getElementById("greetingContainer");
+		  function isPrime(number){				//#A
+			  if(number < 2) { return false; }			//#A
+							
+			  for(var i = 2; i < number; i++) {		//#A
+				if(number % i == 0) { return false; }		//#A
+			  }							//#A
+							
+			  return true;					//#A
+			}							//#A
+						
+			isPrime = new Proxy(isPrime, {			//#B
+			  apply: function(target, thisArg, args){		//#C
+			    console.time("isPrime");			//#D
+								
+			    var result = target.apply(thisArg, args);	//#E
+													
+			    console.timeEnd("isPrime");			//#F
+								
+			    return result;					
+			  }
+			});							
+							
+			isPrime(1299827);					//#G
 
-		  var ninja = { name: "", clan: ""};				//#C
-
-		  Object.observe(ninja, function(changes) {			//#D
-		    greetingContainer.textContent = "Greetings to: " + ninja.name	+ " of " + ninja.clan;		//#D
-		  });								//#D
-
-		  nameField.onkeyup = function() { 			//#E
-			ninja.name = nameField.value;					//#E
-		  };																		//#E
-
-		  clanField.onkeyup = function() { 				//#F
-		    ninja.clan = clanField.value;					//#F
-		  };																			//#F
-
-			//#A Input fields through which will change the values of ninja’s name and clan properties
-			//#B A container where we’ll output a greeting to our ninja
-			//#C A simple ninja object
-			//#D On each change to a ninja property, update our greeting
-			//#E Whenever the nameField receives a key, update the value of the name property
-			//#F Whenever the clanField receives a key, update the value of the clan property
+			/*#A Define a primitive implementation of the isPrime function 
+			#B Wrap the isPrime function within a proxy
+			#C Provide an apply trap that will be called whenever a proxy is called as a function. 
+			#D Start a timer called "isPrime"
+			#E Invokes the target function
+			#F Stops the timer and outputs the result
+			#G Calls the function. The call works the same as if we had called the original function*/
 		</script>
+		<p>Works in Firefox, outputs to the console</p>
 	</body>
 </html>
