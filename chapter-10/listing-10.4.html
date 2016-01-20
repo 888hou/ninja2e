@@ -8,11 +8,11 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = ["Yagyu", "Kumawakamaru", "Hattori", "Fuma"];
+			const ninjas = ["Yagyu", "Kumawakamaru", "Hattori", "Fuma"];
 
 			var removedItems = ninjas.splice(1, 1);
 
-			assert(removedItems.length == 1, "One item was removed");
+			assert(removedItems.length === 1, "One item was removed");
 			assert(removedItems[0] === "Kumawakamaru");
 
 			assert(ninjas.length === 3, "There are now three items in the array");

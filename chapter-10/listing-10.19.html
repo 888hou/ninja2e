@@ -31,14 +31,14 @@
 			  }
 			}
 
-			var ninjas = new Set();
+			const ninjas = new Set();
 			ninjas.add("Hattori");
 			ninjas.add("Hattori");
 
-			assert(ninjas.has("Hattori") && ninjas.length == 1,  "Our set contains only one Hattori");
+			assert(ninjas.has("Hattori") && ninjas.length === 1,  "Our set contains only one Hattori");
 
 			ninjas.remove("Hattori");
-			assert(!ninjas.has("Hattori") && ninjas.length == 0,  "Our set is now empty");
+			assert(!ninjas.has("Hattori") && ninjas.length === 0,  "Our set is now empty");
 		</script>
 	</body>
 </html>

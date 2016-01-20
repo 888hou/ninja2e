@@ -8,11 +8,11 @@
 	</head>
 	<body>
 		<script>
-			var map = new Map();
-			var currentLocation = location.href;
+			const map = new Map();
+			const currentLocation = location.href;
 
-			var firstLink = new URL(currentLocation);
-			var secondLink = new URL(currentLocation);
+			const firstLink = new URL(currentLocation);
+			const secondLink = new URL(currentLocation);
 
 			map.set(firstLink, { description: "firstLink"});
 			map.set(secondLink, { description: "secondLink"});

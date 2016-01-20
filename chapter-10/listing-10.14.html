@@ -10,7 +10,7 @@
 		<div id="firstElement"></div>
   		<div id="secondElement"></div>
   		<script>
-    		var dictionary = {
+    		const dictionary = {
           "ja": {
             "Ninjas for hire": "レンタル用の忍者"
           },
@@ -22,8 +22,8 @@
              }
         };
 
-        assert(dictionary.ja["Ninjas for hire"] == "レンタル用の忍者", "We know how to say 'Ninjas for hire' in Japanese!");
-        assert(typeof dictionary.ja["constructor"] == "undefined", dictionary.ja["constructor"]);
+        assert(dictionary.ja["Ninjas for hire"] === "レンタル用の忍者", "We know how to say 'Ninjas for hire' in Japanese!");
+        assert(typeof dictionary.ja["constructor"] === "undefined", dictionary.ja["constructor"]);
   		</script>
 	</body>
 </html>

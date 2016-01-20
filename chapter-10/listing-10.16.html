@@ -8,11 +8,11 @@
 	</head>
 	<body>
 		<script>
-			var ninjaIslandMap = new Map();
+			const ninjaIslandMap = new Map();
 
-  			var ninja1 = { name: "Yoshi"};
-  			var ninja2 = { name: "Hatori"};
-  			var ninja3 = { name: "Kuma"};
+  			const ninja1 = { name: "Yoshi"};
+  			const ninja2 = { name: "Hatori"};
+  			const ninja3 = { name: "Kuma"};
 
   			ninjaIslandMap.set(ninja1, { homeIsland: "Honshu"});
   			ninjaIslandMap.set(ninja2, { homeIsland: "Hokkaido"});
@@ -20,7 +20,7 @@
   			assert(ninjaIslandMap.get(ninja1).homeIsland === "Honshu", "The first mapping works");
   			assert(ninjaIslandMap.get(ninja2).homeIsland === "Hokkaido", "The second mapping works");
 
-  			assert(ninjaIslandMap.get(ninja3) == null, "There is no mapping for the third ninja!");
+  			assert(ninjaIslandMap.get(ninja3) === undefined, "There is no mapping for the third ninja!");
 
   			assert(ninjaIslandMap.size === 2, "We’ve created two mappings");
 

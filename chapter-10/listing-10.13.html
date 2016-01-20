@@ -9,8 +9,8 @@
 	<body>
 		  <input id="first"/>
 		  <input id="second"/>
-		  <script type="text/javascript">
-		    var elems = {
+		  <script>
+		    const elems = {
 		      length: 0,
 		      add: function(elem){
 		        Array.prototype.push.call(this, elem);
@@ -24,15 +24,15 @@
 		    };
 
 		    elems.gather("first");
-		    assert(elems.length == 1 && elems[0].nodeType,
+		    assert(elems.length === 1 && elems[0].nodeType,
 		           "Verify that we have an element in our stash");
 
 		    elems.gather("second");
-		    assert(elems.length == 2 && elems[1].nodeType,
+		    assert(elems.length === 2 && elems[1].nodeType,
 		           "Verify the other insertion");
 
-		    var found = elems.find(function(elem){ return elem.id == "second"});
-		    assert(found && found.id == "second",
+		    const found = elems.find(elem => elem.id === "second");
+		    assert(found && found.id === "second",
 		           "We’ve found our element");
 		</script>
 	</body>

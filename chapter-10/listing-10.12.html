@@ -8,14 +8,12 @@
 	</head>
 	<body>
 		<script>
-			var numbers = [1, 2, 3, 4];
+			const numbers = [1, 2, 3, 4];
 
-			var sum = numbers.reduce(function(aggregated, number) {
-			   return aggregated + number;
-			}, 0);
+			const sum = numbers.reduce((aggregated, number) => 
+				                        aggregated + number, 0);
 
-			assert(sum == 10, "The sum of first four numbers is 10")
-
+			assert(sum === 10, "The sum of first four numbers is 10")
 		</script>
 	</body>
 </html>

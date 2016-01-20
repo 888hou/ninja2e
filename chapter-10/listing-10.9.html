@@ -8,30 +8,24 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = [
+			const ninjas = [
 			  {name: "Yagyu", weapon: "shuriken"},
 		      {name: "Yoshi" },
 		      {name: "Kuma", weapon: "wakizashi"}
 			];
 
-			var ninjaWithWakizashi = ninjas.find(function(ninja){
-			  return ninja.weapon == "wakizashi";
-			});
+			const ninjaWithWakizashi = ninjas.find(ninja => ninja.weapon == "wakizashi");
 
-			assert(ninjaWithWakizashi.name == "Kuma" && ninjaWithWakizashi.weapon == "wakizashi",  "Kuma is wielding a wakizashi");
+			assert(ninjaWithWakizashi.name === "Kuma" && ninjaWithWakizashi.weapon === "wakizashi",  "Kuma is wielding a wakizashi");
 
-			var ninjaWithKatana = ninjas.find(function(ninja){
-			  return ninja.weapon == "katana";
-			});
+			const ninjaWithKatana = ninjas.find(ninja => ninja.weapon == "katana");
 
-			assert(ninjaWithKatana == null,  "We couldn’t find a ninja that wields a katana");
+			assert(ninjaWithKatana === undefined,  "We couldn’t find a ninja that wields a katana");
 
-			var armedNinjas = ninjas.filter(function(ninja){
-			  return "weapon" in ninja;
-			});
+			const armedNinjas = ninjas.filter(ninja => "weapon" in ninja);
 
-			assert(armedNinjas.length == 2, "There are two armed ninjas:");
-			assert(armedNinjas[0].name == "Yagyu" && armedNinjas[1].name == "Kuma", "Yagyu and Kuma");
+			assert(armedNinjas.length === 2, "There are two armed ninjas:");
+			assert(armedNinjas[0].name === "Yagyu" && armedNinjas[1].name == "Kuma", "Yagyu and Kuma");
 		</script>
 	</body>
 </html>

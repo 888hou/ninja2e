@@ -8,16 +8,14 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = new Set(["Kuma", "Hattori", "Yagyu"]);
-			var samurai = new Set(["Hattori", "Oda", "Tomoe"]);
+			const ninjas = new Set(["Kuma", "Hattori", "Yagyu"]);
+			const samurai = new Set(["Hattori", "Oda", "Tomoe"]);
 
-			var pureNinjas = new Set(
-			  [...ninjas].filter(function(ninja){
-			    return !samurai.has(ninja);
-			  })
+			const pureNinjas = new Set(
+			  [...ninjas].filter(ninja => !samurai.has(ninja))
 			);
 
-			assert(pureNinjas.size == 2, "There’s only one ninja samurai");
+			assert(pureNinjas.size === 2, "There’s only one ninja samurai");
 			assert(pureNinjas.has("Kuma"), "Kuma is a true ninja");
 			assert(pureNinjas.has("Yagyu"), "Yagyu is a true ninja");
 		</script>

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = [];
+			const ninjas = [];
 			assert(ninjas.length === 0, "An array starts empty");
 
 			ninjas.push("Kumawakamaru");
@@ -26,13 +26,13 @@
 			assert(ninjas[2] === "Hattori", "And Hattori to the third place");
 			assert(ninjas.length === 3, "We have three items in the array!");
 
-			var lastNinja = ninjas.pop();
+			const lastNinja = ninjas.pop();
 			assert(lastNinja === "Hattori", "We've removed Hattori from the end of the array");
 			assert(ninjas[0] === "Yagyu", "Now Yagyu is still the first item");
 			assert(ninjas[1] === "Kumawakamaru", "Kumawakamaru is still on the second place");
 			assert(ninjas.length === 2, "Now there are two items in the array");
 
-			var firstNinja = ninjas.shift();
+			const firstNinja = ninjas.shift();
 			assert(firstNinja === "Yagyu", "We've removed Yagyu from the beginning of the array");
 			assert(ninjas[0] === "Kumawakamaru", "Kumawakamaru has shifted to the first place");
 			assert(ninjas.length === 1, "There's only one ninja in the array");

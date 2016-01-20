@@ -8,10 +8,10 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = ["Kuma", "Hattori", "Yagyu"];
-			var samurai = ["Hattori", "Oda", "Tomoe"];
+			const ninjas = ["Kuma", "Hattori", "Yagyu"];
+			const samurai = ["Hattori", "Oda", "Tomoe"];
 
-			var warriors = new Set([...ninjas, ...samurai]);
+			const warriors = new Set([...ninjas, ...samurai]);
 
 			assert(warriors.has("Kuma"), "Kuma is here");
 			assert(warriors.has("Hattori"), "And Hattori");

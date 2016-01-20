@@ -8,11 +8,11 @@
 	</head>
 	<body>
 		<script>
-			var ninjas = ["Yagyu", "Kuma", "Hattori"];
+			const ninjas = ["Yagyu", "Kuma", "Hattori"];
 
-			for(var i = 0; i < ninjas.length; i++){
-			  assert(ninjas[i], ninjas[i]);
-			}
+			ninjas.forEach(ninja => {
+				assert(ninja !== null, ninja);
+			});
 		</script>
 	</body>
 </html>

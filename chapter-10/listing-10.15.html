@@ -10,10 +10,10 @@
 		<div id="firstElement"></div>
   		<div id="secondElement"></div>
   		<script>
-    		var firstElement = document.getElementById("firstElement");
-    		var secondElement = document.getElementById("secondElement");
+    		const firstElement = document.getElementById("firstElement");
+    		const secondElement = document.getElementById("secondElement");
 
-    		var map = {};
+    		const map = {};
 
     		map[firstElement] = { data: "firstElement"};
     		assert(map[firstElement].data === "firstElement", "The first element is correctly mapped");
