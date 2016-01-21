@@ -14,11 +14,11 @@
 		      {name: "Kuma", weapon: "wakizashi"}
 			];
 
-			const ninjaWithWakizashi = ninjas.find(ninja => ninja.weapon == "wakizashi");
+			const ninjaWithWakizashi = ninjas.find(ninja => ninja.weapon === "wakizashi");
 
 			assert(ninjaWithWakizashi.name === "Kuma" && ninjaWithWakizashi.weapon === "wakizashi",  "Kuma is wielding a wakizashi");
 
-			const ninjaWithKatana = ninjas.find(ninja => ninja.weapon == "katana");
+			const ninjaWithKatana = ninjas.find(ninja => ninja.weapon === "katana");
 
 			assert(ninjaWithKatana === undefined,  "We couldn’t find a ninja that wields a katana");
 
