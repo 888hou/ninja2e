@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Test Suite</title>
-    <style>
-      #results li.pass { color: green; }
-      #results li.fail { color: red; }
-    </style>
-    <script>
-      function assert(value, desc) {
-        var li = document.createElement("li");
-        li.className = value ? "pass" : "fail";
-        li.appendChild(document.createTextNode(desc));
-        document.getElementById("results").appendChild(li);
-      }
-      window.onload = function() {
-        assert(true, "The test suite is running.");
-        assert(false, "Fail!");
-      };
-    </script>
-  </head>
-  <body>
-    <ul id="results"></ul>
-  </body>
+
+<head>
+  <title>Function declarations and function expressions</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    function myFunctionDeclaration(){ 
+      function innerFunction() {}
+    }
+
+    var myFunc = function(){};
+    myFunc(function(){
+      return function(){};
+    });
+
+    (function namedFunctionExpression () {
+    })();
+
+    +function(){}();
+    -function(){}();
+    !function(){}();
+    ~function(){}();
+  </script>
+  <p>No output</p>
+</body>
 </html>

@@ -1,33 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="../jasmine/lib/jasmine-2.2.0/jasmine.css"> 	  <!--#A-->
 
-  <script src="../jasmine/lib/jasmine-2.2.0/jasmine.js"></script>		        <!--#A-->
-  <script src="../jasmine/lib/jasmine-2.2.0/jasmine-html.js"></script>		    <!--#A-->
-  <script src="../jasmine/lib/jasmine-2.2.0/boot.js"></script>			          <!--#A-->
+<head>
+  <title>Using the rest parameters</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
 </head>
 <body>
-<script>
-  function sayHiToNinja(ninja) {					                         //#B
-    return "Hi " + ninja;						                               //#B
-  }								 	                                               //#B
-
-  describe("Say Hi Suite", function() {				                     //#C
-    it("should say hi to a ninja", function() {			               //#D
-      expect(sayHiToNinja("Hatori")).toBe("Hi Hatori");		         //#E
-    });
-
-    it("should fail", function(){
-      expect(false).toBe(true);                                    //#F
-    })
-  });
-</script>
+  <script type="text/javascript">
+    "use strict"
+    function multiMax(first, ...remainingNumbers){
+      var sorted = remainingNumbers.sort(function(a, b){
+         return b - a;
+      });
+      return first * sorted[0];
+    }
+    assert(multiMax(3, 1, 2, 3) == 9,
+          "3*3=9 (First arg, by largest.)");
+  </script>
 </body>
 </html>
-<!-- #A Includes Jasmine files
-     #B Declares the function that we want to test
-     #C Defines a test suite calls “Say Hi Suite”
-     #D Specifies a single test that checks our function
-     #E Asserts that our function produces the right result
-     #F Fail on purpose-->

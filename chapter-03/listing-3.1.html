@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Logging</title>
-    <script>
-      var x = 213;
-      console.log("The value of x is: ", x);
 
-      x = "Hello " + "World";
-      console.log("The value of x is now:", x);
-     </script>
-   </head>
-   <body>Outputs to the console (press F12)</body>
+<head>
+  <title>A simple callback example</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+    var text = 'Domo arigato!';
+
+    function useless(callback) {
+      return callback();
+    }
+
+    function getText() {
+      return text;
+    }
+
+    assert(useless(getText) === text,
+           "The useless function works! " + text);
+  </script>
+</body>
 </html>

@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-		<title>Counting Ninjas and conditional breakpoints</title>
-    <script>
-      for(var i = 0; i < 100; i++){
-        console.log("Ninjas: " + i); //#A
+<head>
+  <title>Memoizing previously computed values</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../assert.css">
+  <script src="../assert.js"></script>
+</head>
+<body>
+  <script>
+
+    function isPrime(value) {
+      if (!isPrime.answers) {
+        isPrime.answers = {};
       }
-    </script>
-  </head>
-  <body>Outputs to the console (press F12)</body>
+
+      if (isPrime.answers[value] !== undefined) {
+        return isPrime.answers[value];
+      }
+
+      var prime = value !== 1;
+
+      for (var i = 2; i < value; i++) {
+        if (value % i === 0) {
+          prime = false;
+          break;
+        }
+      }
+
+      return isPrime.answers[value] = prime;
+    }
+
+    assert(isPrime(5), "5 is prime!" );
+    assert(isPrime.answers[5], "The answer was cached!" );
+  </script>
+</body>
 </html>
-<!--#A What if we wanted to explore the application state when counting the 50th ninja? Should we have to tediously go through the first 49?-->
