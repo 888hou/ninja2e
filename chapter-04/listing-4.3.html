@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Using strict mode to avoid arguments aliasing</title>
+  <title>The arguments object aliases function parameters</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
-<body>
-	<script>
-	  "use strict"
 
-    function infiltrate(person){
+<body>
+  <script>
+    function infiltrate(person) {
       assert(person === 'gardener',
         'The person is a gardener');
       assert(arguments[0] === 'gardener',
@@ -18,14 +18,20 @@
 
       arguments[0] = 'ninja';
 
+      assert(person === 'ninja',
+        'The person is a ninja now');
       assert(arguments[0] === 'ninja',
-        'The first argument is now a ninja');
+        'The first argument is a ninja');
+
+      person = 'gardener';
 
       assert(person === 'gardener',
-        'The person is still a gardener');
+        'The person is a gardener once more');
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener again');
     }
 
     infiltrate("gardener");
-    </script>
+  </script>
 </body>
 </html>

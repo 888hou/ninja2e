@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Using a constructor to set up common objects</title>
+  <title>Illustrating the difference between function and method invocations</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-	<script type="text/javascript">
-    function Ninja() {
-      this.skulk = function() {
-        return this;
-      };
+ <script>
+		function whatsMyContext() {
+      return this;
     }
 
-    var ninja1 = new Ninja();
-    var ninja2 = new Ninja();
+    assert(whatsMyContext() === window,
+      "Function call on window");
 
-    assert(ninja1.skulk() === ninja1,
-      "The 1st ninja is skulking");
-    assert(ninja2.skulk() === ninja2,
-      "The 2nd ninja is skulking");
+    var getMyThis = whatsMyContext;
+
+    assert(getMyThis() === window,
+      "Another function call in window");
+
+    var ninja1 = {
+      getMyThis: whatsMyContext
+    };
+
+    assert(ninja1.getMyThis() === ninja1,
+      "Working with 1st ninja");
+
+    var ninja2 = {
+      getMyThis: whatsMyContext
+    };
+
+    assert(ninja2.getMyThis() === ninja2,
+      "Working with 2nd ninja");
 	</script>
 </body>
 </html>

@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Constructors explicitly returning object values</title>
+  <title>Constructors returning primitive values</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
 	<script>
-    var puppet = {
-      rules: false
+    function Ninja() {
+    this.skulk = function () {
+      return true;
     };
 
-    function Emperor() {
-      this.rules = true;
-      return puppet;
-    }
+    return 1;
+  }
+  assert(Ninja() === 1,
+    "Return value honored when not called as a constructor");
 
-    var emperor = new Emperor();
+  var ninja = new Ninja();
 
-    assert(emperor === puppet,
-      "The emperor is merely a puppet!");
-    assert(emperor.rules === false,
-      "The puppet does not know how to rule!");
+  assert(typeof ninja === "object",
+    "Object returned when called as a constructor");
+  assert(typeof ninja.skulk === "function",
+    "ninja object has a skulk method");
 	</script>
 </body>
 </html>

@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Invocation as a function</title>
+  <title>Using strict mode to avoid arguments aliasing</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-	  <script>
-  		function ninja() {
-        return this;
-      }
+	<script>
+	  "use strict"
 
-      function samurai() {
-        "use strict";
-        return this;
-      }
+    function infiltrate(person){
+      assert(person === 'gardener',
+        'The person is a gardener');
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener');
 
-      assert(ninja() === window,
-        "In a 'non-strict' ninja function, " +
-        "the context is the global window object");
+      arguments[0] = 'ninja';
 
-      assert(samurai() === undefined,
-        "In a 'strict' samurai function, " +
-        "the context is undefined");
-  	</script>
+      assert(arguments[0] === 'ninja',
+        'The first argument is now a ninja');
+
+      assert(person === 'gardener',
+        'The person is still a gardener');
+    }
+
+    infiltrate("gardener");
+    </script>
 </body>
 </html>

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Using arrow functions to work around callback function contexts</title>
+  <title>Building a foreach function to demonstrate setting a function context</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <button id="test">Click Me!</button>
   <script>
-    function Button() {
-      this.clicked = false;
-      this.click = () => {
-        this.clicked = true;
-        assert(button.clicked, "The button has been clicked");
+    function forEach(list, callback) {
+      for (var n = 0; n < list.length; n++) {
+        callback.call(list[n], n);
       }
     }
-    var button = new Button();
-    var elem = document.getElementById("test");
-    elem.addEventListener("click", button.click);
+
+    var weapons = [{ type:'shuriken'}, 
+                   { type:'katana'},
+                   { type:'nunchucks'}];
+
+    forEach(weapons, function(index){
+        assert(this === weapons[index],
+              "Got the expected object of " + weapons[index].type);
+    });
   </script>
 </body>
 </html>

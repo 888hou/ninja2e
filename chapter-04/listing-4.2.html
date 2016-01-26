@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>The arguments object aliases function parameters</title>
+  <title>The arguments object allows access to all parameters</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
@@ -10,28 +10,17 @@
 
 <body>
   <script>
-    function infiltrate(person) {
-      assert(person === 'gardener',
-        'The person is a gardener');
-      assert(arguments[0] === 'gardener',
-        'The first argument is a gardener');
-
-      arguments[0] = 'ninja';
-
-      assert(person === 'ninja',
-        'The person is a ninja now');
-      assert(arguments[0] === 'ninja',
-        'The first argument is a ninja');
-
-      person = 'gardener';
-
-      assert(person === 'gardener',
-        'The person is a gardener once more');
-      assert(arguments[0] === 'gardener',
-        'The first argument is a gardener again');
+    function sum() {
+      var sum = 0;
+      for(var i = 0; i < arguments.length; i++){
+        sum += arguments[i];
+      }
+      return sum;
     }
 
-    infiltrate("gardener");
+    assert(sum(1, 2) === 3, "We can add two numbers");
+    assert(sum(1, 2, 3) === 6, "We can add three numbers");
+    assert(sum(1, 2, 3, 4) === 10, "We can add four numbers");
   </script>
 </body>
 </html>
