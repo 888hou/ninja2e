@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Comparing a lambda function and a function expression</title>
+  <title>Using a constructor to set up common objects</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <script>
-    var greet = name => "Greetings " + name;                                  //#A
-    assert(greet("Oishi") == "Greetings Oishi", "Oishi is properly greeted");
+	<script type="text/javascript">
+    function Ninja() {
+      this.skulk = function() {
+        return this;
+      };
+    }
 
-    var anotherGreet = function(name){		                                    //#B
-      return "Greetings " + name;                                             //#B
-    }						                                                              //#B
-    assert(anotherGreet("Oishi") == "Greetings Oishi",
-         "Again, Oishi is properly greeted");
+    var ninja1 = new Ninja();
+    var ninja2 = new Ninja();
 
-    //#A Defines a lambda function
-    //#B Defines a function expression
-  </script>
+    assert(ninja1.skulk() === ninja1,
+      "The 1st ninja is skulking");
+    assert(ninja2.skulk() === ninja2,
+      "The 2nd ninja is skulking");
+	</script>
 </body>
 </html>

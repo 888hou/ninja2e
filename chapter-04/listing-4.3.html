@@ -1,43 +1,31 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Memoizing previously computed values</title>
+  <title>Using strict mode to avoid arguments aliasing</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
-
 <body>
-  <script>
+	<script>
+	  "use strict"
 
-    function isPrime(value) {
-      if (!isPrime.answers) { 						              //#A
-        isPrime.answers = {};                      			//#A
-      }   									                            //#A
+    function infiltrate(person){
+      assert(person === 'gardener',
+        'The person is a gardener');
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener');
 
-      if (isPrime.answers[value] != null) {                            //#B
-        return isPrime.answers[value];                  		           //#B
-      }                                                                //#B
+      arguments[0] = 'ninja';
 
-      var prime = value != 1; // 1 can never be prime
+      assert(arguments[0] === 'ninja',
+        'The first argument is now a ninja');
 
-      for (var i = 2; i < value; i++) {
-        if (value % i == 0) {
-          prime = false;
-          break;
-        }
-      }
-
-      return isPrime.answers[value] = prime;                            //#C
+      assert(person === 'gardener',
+        'The person is still a gardener');
     }
 
-    assert(isPrime(5), "5 is prime!" );                                //#D
-    assert(isPrime.answers[5], "The answer was cached!" );             //#D
-    //#A Creates the cache
-    //#B Checks for cached values
-    //#C Stores the computed value
-    //#D Tests that it all works
-  </script>
+    infiltrate("gardener");
+    </script>
 </body>
 </html>

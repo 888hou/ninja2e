@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Referencing previous parameters</title>
+  <title>Using the apply and call methods to supply the function context</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
-
 <body>
   <script>
-  function performAction(ninja, action = "skulking",
-                         message = ninja + " " + action) { //#A
-    return message;
-  }
+    function juggle() {
+      var result = 0;
+      for (var n = 0; n < arguments.length; n++) {
+        result += arguments[n];
+      }
+      this.result = result;
+    }
 
-  assert(performAction("Yoshi"), "Yoshi skulking");
-  //#A We can place arbitrary expressions as default parameter values, in the process even referencing previous function parameters.
+    var ninja1 = {};
+    var ninja2 = {};
+
+    juggle.apply(ninja1,[1,2,3,4]);
+    juggle.call(ninja2, 5,6,7,8);
+
+    assert(ninja1.result === 10, "juggled via apply");
+    assert(ninja2.result === 26, "juggled via call");
   </script>
-  <p>December 2015, Works in Firefox</p>
 </body>
 </html>

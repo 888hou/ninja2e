@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Examples of function declarations</title>
+  <title>Invocation as a function</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <script>
-    function samurai() {                     //#A
-      return 'I’m a samurai!';              //#A
-    }
+	  <script>
+  		function ninja() {
+        return this;
+      }
 
-    function ninja() {                       //#B
-      function hiddenNinja() {               //#C
-        return 'I’m a ninja!';               //#C
-      }                                      //#C
+      function samurai() {
+        "use strict";
+        return this;
+      }
 
-      return hiddenNinja();
-    }
-    //#A Defines function samurai in the global code
-    //#B Defines function ninja in the global code
-    //#C Defines function hiddenNinja within the ninja function
-    assert(samurai(), "I’m a samurai!");
-    assert(ninja(), "I’m a ninja!");
-  </script>
+      assert(ninja() === window,
+        "In a 'non-strict' ninja function, " +
+        "the context is the global window object");
+
+      assert(samurai() === undefined,
+        "In a 'strict' samurai function, " +
+        "the context is undefined");
+  	</script>
 </body>
-
 </html>

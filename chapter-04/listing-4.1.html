@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>A simple callback example</title>
+  <title>Using the arguments parameter</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
   <script>
-    var text = 'Domo arigato!';
+    function whatever(a, b, c){
+      assert(a === 1, 'The value of a is 1');
+      assert(b === 2, 'The value of b is 2');
+      assert(c === 3, 'The value of c is 3');
 
-    function useless(callback) {	//#A
-      return callback();		      //#A
-    }					                    //#A
+      assert(arguments.length === 5,
+        'We’ve passed in 5 parameters');
 
-    function getText() {		      //#B
-      return text;			          //#B
-    }					                    //#B
+      assert(arguments[0] === a,
+        'The first argument is assigned to a');
+      assert(arguments[1] === b,
+        'The second argument is assigned to b');
+      assert(arguments[2] === c,
+        'The third argument is assigned to c');
 
-    assert(useless(getText) === text, 			        //#C
-           "The useless function works! " + text);	//#C
-    //#A Defines a function that takes a callback function and immediately invokes it
-    //#B Defines a simple function that returns a global variable
-    //#C Call our useless function with the getText function as a callback
+      assert(arguments[3] === 4,
+        'We can access the fourth argument');
+      assert(arguments[4] === 5,
+        'We can access the fifth argument');
+    }
+    
+    whatever(1,2,3,4,5);
   </script>
 </body>
 </html>

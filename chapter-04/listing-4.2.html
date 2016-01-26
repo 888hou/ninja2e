@@ -2,37 +2,36 @@
 <html>
 
 <head>
-  <title>Storing a collection of unique functions</title>
+  <title>The arguments object aliases function parameters</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
+
 <body>
   <script>
-    var store = {
-      nextId: 1,                                               //#A
-      cache: {},                                               //#B
-      add: function(fn) {                                      //#C
-        if (!fn.id) {                              		         //#C
-          fn.id = this.nextId++;                  		         //#C
-          this.cache[fn.id] = fn;      			                  //#C
-          return true;					                               //#C
-        }                                          		         //#C
-      }							                                           //#C
-    };
+    function infiltrate(person) {
+      assert(person === 'gardener',
+        'The person is a gardener');
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener');
 
-    function ninja(){}
+      arguments[0] = 'ninja';
 
-    assert(store.add(ninja),                                //#D
-           "Function was safely added.");        		        //#D
-    assert(!store.add(ninja),                    		        //#D
-           "But it was only added once.");                  //#D
+      assert(person === 'ninja',
+        'The person is a ninja now');
+      assert(arguments[0] === 'ninja',
+        'The first argument is a ninja');
 
-    //#A Keeps track of the next available id to be assigned.
-    //#B Creates an object to serve as a cache in which we’ll store functions.
-    //#C Adds functions to the cache, but only if they’re unique.
-    //#D Tests that all works as planned.
+      person = 'gardener';
+
+      assert(person === 'gardener',
+        'The person is a gardener once more');
+      assert(arguments[0] === 'gardener',
+        'The first argument is a gardener again');
+    }
+
+    infiltrate("gardener");
   </script>
 </body>
-
 </html>

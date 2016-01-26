@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Binding a specific context to a function</title>
+  <title>Arrow functions and object literals</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-	<button id="test">Click Me!</button>
-  <script>
-    function Button(){
-      this.clicked = false;
-      this.click = function() {
+  <button id="test">Click Me!</button>
+  <script type="text/javascript">
+    assert(this == window, "this == window");
+    var button = {
+      clicked: false,
+      click: () => {
         this.clicked = true;
         assert(button.clicked,"The button has been clicked");
+        assert(this == window, "In arrow function this == window");
+        assert(window.clicked, "clicked is stored in window");
       }
     }
-    var button = new Button();
+
     var elem = document.getElementById("test");
     elem.addEventListener("click", button.click);
   </script>

@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Function declarations and function expressions</title>
+  <title>Illustrating the difference between function and method invocations</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <script>
-    function myFunctionDeclaration(){          //#A
-      function innerFunction() {}              //#B
+ <script>
+		function whatsMyContext() {
+      return this;
     }
 
-    var myFunc = function(){};		              //#C
-    myFunc(function(){                          //#D
-      return function(){};                      //#E
-    });
+    assert(whatsMyContext() === window,
+      "Function call on window");
 
-    (function namedFunctionExpression () {	   //#F
-    })(); 					                           //#F
+    var getMyThis = whatsMyContext;
 
-    +function(){}();                           //#G
-    -function(){}();                           //#G
-    !function(){}();                           //#G
-    ~function(){}();                           //#G
+    assert(getMyThis() === window,
+      "Another function call in window");
 
-    //#A A stand-alone function declaration
-    //#B An inner function declaration
-    //#C A function expression as a part of a variable declaration assignment
-    //#D A function expression as an argument of a function call
-    //#E A function expression as a function return value
-    //#F A named function expression as a part of a function call that will be immediately invoked
-    //#G Function expressions that will be immediately invoked, as arguments to unary operators
-  </script>
-  <p>No output</p>
+    var ninja1 = {
+      getMyThis: whatsMyContext
+    };
+
+    assert(ninja1.getMyThis() === ninja1,
+      "Working with 1st ninja");
+
+    var ninja2 = {
+      getMyThis: whatsMyContext
+    };
+
+    assert(ninja2.getMyThis() === ninja2,
+      "Working with 2nd ninja");
+	</script>
 </body>
 </html>

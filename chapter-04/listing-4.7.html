@@ -2,26 +2,29 @@
 <html>
 
 <head>
-  <title>Using the rest parameters</title>
+  <title>Constructors returning primitive values</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../assert.css">
   <script src="../assert.js"></script>
+  <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <script type="text/javascript">
-  "use strict"
-  function multiMax(first, ...remainingNumbers){        //#A
-    var sorted = remainingNumbers.sort(function(a, b){
-       return b - a;
-    });
-    return first * sorted[0];
-  }
-  assert(multiMax(3, 1, 2, 3) == 9, 				            //#B
-        "3*3=9 (First arg, by largest.)");
+	<script>
+    function Ninja() {
+    this.skulk = function () {
+      return true;
+    };
 
-  //#A The rest parameters are prefixed with …
-  //#B The function is called just like any other function
-  </script>
-  <p>December 2015, Works in Firefox</p>
+    return 1;
+  }
+  assert(Ninja() === 1,
+    "Return value honored when not called as a constructor");
+
+  var ninja = new Ninja();
+
+  assert(typeof ninja === "object",
+    "Object returned when called as a constructor");
+  assert(typeof ninja.skulk === "function",
+    "ninja object has a skulk method");
+	</script>
 </body>
 </html>
