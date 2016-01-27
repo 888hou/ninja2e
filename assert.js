@@ -10,3 +10,6 @@ function assert(value, text) {
   }
   results.appendChild(li);
 }
+
+function pass(text) { assert(true, text); }
+function fail(text) { assert(fail, text); }

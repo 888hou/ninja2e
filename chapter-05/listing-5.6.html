@@ -2,31 +2,37 @@
 <html>
 
 <head>
-  <title>Using a constructor to set up common objects</title>
+  <title>The behavior of constant variable</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
-
 <body>
-	<script type="text/javascript">
-    function Ninja() {                                      //#A
-      this.skulk = function() {					                    //#A
-        return this;						                            //#A
-      };								                                    //#A
-    }								                                        //#A
+	<script>
+    "use strict"
 
-    var ninja1 = new Ninja();                                //#B
-    var ninja2 = new Ninja();                                //#B
+	  const firstConst = "samurai";
+    assert(firstConst === "samurai", "firstConst is a samurai");
 
-    assert(ninja1.skulk() === ninja1,                        //#C
-      "The 1st ninja is skulking");				                   //#C
-    assert(ninja2.skulk() === ninja2,				                 //#C
-      "The 2nd ninja is skulking");                          //#C
+    try{
+      firstConst = "ninja";
+      fail("Shouldn't be here");
+    } catch(e){
+      pass("An exception has occured");
+    }
+    
+    assert(firstConst === "samurai", "firstConst is still a samurai!");
 
-    //#A A constructor that creates a skulk property on whatever object is the function context. The method once again returns the function context so that we can test it externally.
-    //#B Creates two objects by invoking the constructor with new. The newly created objects are referenced by ninja1 and ninja2.
-    //#C Tests the skulk method of the constructed objects. Each should return its own constructed object.
+    const secondConst = {};
+    secondConst.weapon = "wakizashi";
+    assert(secondConst.weapon === "wakizashi", "We can add new properties");
+
+    const thirdConst = [];
+    assert(thirdConst.length === 0, "No items in our array");  
+    
+    thirdConst.push("Yoshi");
+
+    assert(thirdConst.length === 1, "The array has changed");
 	</script>
 </body>
 </html>

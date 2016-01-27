@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Building a foreach function to demonstrate setting a function context</title>
+  <title>Approximate private variables with closure</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
+
 <body>
-  <script type="text/javascript">
-    function forEach(list,callback) {              //#A
-      for (var n = 0; n < list.length; n++) {
-        callback.call(list[n],n);                  //#B
-      }
+	<script>
+	  function Ninja() {
+      var feints = 0;
+      this.getFeints = function(){
+        return feints;
+      };
+      this.feint = function(){
+        feints++;
+      };
     }
+    var ninja1 = new Ninja();
+    assert(ninja1.feints === undefined,
+           "And the private data is inaccessible to us.");
+    ninja1.feint();
+    assert(ninja1.getFeints() === 1,
+           "We're able to access the internal feint count.");
 
-    var weapons = ['shuriken','katana','nunchucks'];   //#C
-
-    forEach(weapons, function(index){				//#D
-        assert(this == weapons[index],				//#D
-              "Got the expected value of " + weapons[index]);	//#D
-    });								//#D
-
-    //#A Our iteration function accepts the collection to be iterated over, and a callback function.
-    //#B The callback is invoked such that the current iteration item is the function context.
-    //#C Our test subject!
-    //#D Calls the iteration function and ensures that the function context is correct for each invocation of the callback.
-  </script>
+    var ninja2 = new Ninja();
+    assert(ninja2.getFeints() === 0,
+           "The second ninja object gets it’s own feints variable.");
+	</script>
 </body>
 </html>

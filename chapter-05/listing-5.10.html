@@ -1,35 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Using the apply and call methods to supply the function context</title>
+  <title>Overriding function identifiers</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <script type="text/javascript">
-    function juggle() {                                          //#A
-      var result = 0;						                                 //#A
-      for (var n = 0; n < arguments.length; n++) {               //#A
-        result += arguments[n];                                  //#A
-      }                                                          //#A
-      this.result = result;                                      //#A
-    }                                                            //#A
+	<script>
+	  assert(typeof fun === "function", "We access the function");
 
-    var ninja1 = {};                           		//#B
-    var ninja2 = {};                           		//#B
+    var fun = 3;
 
-    juggle.apply(ninja1,[1,2,3,4]);                       //#C
-    juggle.call(ninja2, 5,6,7,8);                                //#D
+    assert(typeof fun === "number", "Now we access the number");
 
-    assert(ninja1.result === 10,"juggled via apply");          //#E
-    assert(ninja2.result === 26,"juggled via call");          //#E
+    function fun(){}
 
-    //#A The function “juggles” the arguments and puts the result onto whatever object is the function context.
-    //#B These object are initially empty and will serve as our test subjects.
-    //#C Uses the apply method passing ninja1 and an array of arguments.
-    //#D Uses the call method passing ninja2 and a list of arguments.
-    //#E The tests show how the juggle result is placed on the objects passed to the methods.
-  </script>
+    assert(typeof fun == "number", "Still a number");
+	</script>
 </body>
 </html>

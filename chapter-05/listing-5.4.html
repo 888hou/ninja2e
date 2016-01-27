@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Invocation as a function</title>
+  <title>Using a closure in a timer interval callback</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
+  <style>
+  	#box1{
+  		width: 100px;
+  		height: 100px;
+  		position: relative;
+  		margin:5;
+  		color: white;
+  		font-weight: bolder;
+      background-color:blue;
+      margin-bottom: 100px;
+  	}
+  </style>
 </head>
-
 <body>
-	  <script>
-  		function ninja() {			    //#A
-        return this;              //#A
-      }					                  //#A
-
-      function samurai() {		           //#B
-        "use strict";                    //#B
-        return this;	                   //#B
-      }					                         //#B
-
-      assert(ninja() === window,				                //#C
-        "In a 'non-strict' ninja function, " +		      //#C
-        "the context is the global window object");     //#C
-
-      assert(samurai() === undefined,			              //#D
-        "In a 'strict' samurai function, " +		        //#D
-        "the context is undefined");                 	  //#D
-
-      //#A A function in non-strict mode
-      //#B A function in strict mode
-      //#C As expected, a non-strict function has window as the function context
-      //#D The strict function, on the other hand, has an undefined context
-  	</script>
+	<div id="box1">First Box</div> 
+  <script>
+    function animateIt(elementId) {
+      var elem = document.getElementById(elementId);
+      var tick = 0;
+      var timer = setInterval(function(){
+        if (tick < 100) {
+          elem.style.left = elem.style.top = tick + "px";
+          tick++;
+        }
+        else {
+          clearInterval(timer);
+          assert(tick === 100,
+                 "Tick accessed via a closure.");
+          assert(elem,
+                 "Element also accessed via a closure.");
+          assert(timer,
+                 "Timer reference also obtained via a closure." );
+        }
+      }, 10);
+    }
+    animateIt("box1");
+  </script>
 </body>
 </html>

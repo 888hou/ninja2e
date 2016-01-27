@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Using arrow functions to work around callback function contexts</title>
+  <title>Private variables are accessed through functions and not through objects</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
 <body>
-  <button id="test">Click Me!</button>                   <!--#A-->
-  <script type="text/javascript">
-    function Button(){				     //#B
-      this.clicked = false;
-      this.click = () => {						//#C
-        this.clicked = true;
-        assert(button.clicked,"The button has been clicked");	//#D
-      }
+	<script>
+	  function Ninja() {
+      var feints = 0;
+      this.getFeints = function(){
+        return feints;
+      };
+      this.feint = function(){
+        feints++;
+      };
     }
-    var button = new Button();
-    var elem = document.getElementById("test");                        //#E
-    elem.addEventListener("click", button.click);                     //#E
+    var ninja1 = new Ninja();
+    ninja1.feint();
 
-    //#A A button element to which we’ll assign event handler.
-    //#B A constructor function which creates objects that retain state regarding our button. With it, we’ll track whether the button has been clicked or not.
-    //#C Declares the arrow function that we’ll use as the click handler. Because it’s a method of the object, we use this within the function to get a reference to the object.
-    //#D Within the method, we test that the button state has been correctly changed after a click.
-    //#E Establishes the click handler on the button.
-  </script>
+    var imposter = {};
+    imposter.getFeints = ninja1.getFeints;
+
+    assert(imposter.getFeints () === 1,
+          "The imposter has access to the feints variable!");
+	</script>
 </body>
 </html>

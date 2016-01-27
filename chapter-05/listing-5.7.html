@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Constructors returning primitive values</title>
+  <title>Using the var keyword</title>
   <meta charset="utf-8">
   <script src="../assert.js"></script>
   <link rel="stylesheet" type="text/css" href="../assert.css">
 </head>
-
 <body>
 	<script>
-    function Ninja() { 					//#A
-    this.skulk = function () {
-      return true;
-    };
+	  var globalNinja = "Yoshi";
 
-    return 1;						//#B
-  }
-  assert(Ninja() === 1,          				   //#C
-    "Return value honored when not called as a constructor"); //#C
+    function reportActivity(){
+      var functionActivity = "jumping";
 
-  var ninja = new Ninja();						//#D
+      for(var i = 1; i < 3; i++) {
+          var forMessage = globalNinja + " " + functionActivity;
+          assert(forMessage === "Yoshi jumping",
+                 "Yoshi is jumping within the for block");
+          assert(i, "Current loop counter:" + i);
+      }
 
-  assert(typeof ninja === "object",           			//#E
-    "Object returned when called as a constructor");		//#E
-  assert(typeof ninja.skulk === "function", 			//#E
-    "ninja object has a skulk method");				//#E
+      assert(i === 3 && forMessage === "Yoshi jumping",
+            "Loop variables accessible outside of the loop");
+      }
 
-  //#A Defines a constructor function named Ninja.
-  //#B The constructor returns a specific primitive value, the number 1.
-  //#C The function is called “as a function” and its return value is 1, as expected.
-  //#D The function is called as a constructor via the new operator.
-  //#E Tests verify that the return value of 1 is ignored, and that a new, initialized object has been returned from new.
+    reportActivity();
+    assert(typeof functionActivity === "undefined"
+        && typeof i === "undefined" && typeof forMessage === "undefined",
+        "We cannot see function variables outside of a function");
 	</script>
 </body>
 </html>
