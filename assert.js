@@ -12,4 +12,5 @@ function assert(value, text) {
 }
 
 function pass(text) { assert(true, text); }
-function fail(text) { assert(fail, text); }
+function fail(text) { assert(false, text); }
+function report(text) { pass(text); }

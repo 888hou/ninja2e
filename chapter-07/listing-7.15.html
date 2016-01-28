@@ -1,57 +1,49 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Creating a JSON promise</title>
 		<meta charset="utf-8">
+		<title>ES6 Inheritance</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
-		<script>
-			function getJSON(url) {
-  			return new Promise(function (resolve, reject) { 	//#A
-    			var request = new XMLHttpRequest();  			//#B
-			    request.open("GET", url);	      			//#C
-
-			    request.onload = function () {	      			//#D
-			      try {
-			        if(this.status == 200 ){				//#E
-			          resolve(JSON.parse(request.response));		//#F
-			        }
-	            else{
-			             reject(this.status + " " + this.statusText); 	//#G
-			        }							//#G
-			      }							//#G
-			      catch(e){						//#G
-			        reject(e.message);					//#G
-			      }							//#G
-			    };
-
-			    request.onerror = function () {			//#H
-			      reject(this.status + " " + this.statusText);	//#H
-			    };							//#H
-
-			    request.send();						//#I
-			  });
-			}
-
-			getJSON("ninjas.json").then(function(ninjas){		//#J
-			  assert(ninjas, "Ninjas obtained!");			//#J
-			}).catch(function(e){					//#J
-			  assert(false, "Shouldn’t be here:" + e);			//#J
-			});								//#J
-
-			//#A Create and return a new promise
-			//#B Creates an XMLHttpRequest object
-			//#C Initializes the request
-			//#D Registers an onload handler which will be called if the server has responded
-			//#E Even if the server has responded, it doesn’t mean that everything went as we expected. Only use the result if the server responds with status 200 (everything OK)
-			//#F Try to parse the JSON string, if it succeeds, resolve the promise as successful with the parsed object
-			//#G If the server responds with a different status code, or if there’s an exception parsing the JSON string, reject the promise
-			//#H If there’s an error while communicating with the server, reject the promise
-			//#I Send the request
-			//#J Use the promise created by the getJSON function to register a resolve and reject callbacks
-		</script>
 	</head>
 	<body>
-		<p>Has to be executed on a server (e.g MAMP, WAMP)</p>
+		<script>
+			"use strict"
+			class Person {
+			  constructor(name){
+			    this.name = name;
+			  }
+
+			  dance(){
+			    return true;
+			  }
+			}
+
+			class Ninja extends Person {
+			  construct(name, weapon){
+			  	//super(name); //Uncomment this line of code when super gets supported.
+			    this.weapon = weapon;
+			  }
+
+			  wieldWeapon(){
+			    return true;
+			  }
+			}
+
+			const person = new Person("Bob");
+
+			assert(person instanceof Person, "A person’s a person");
+			assert(person.dance(), "A person can dance.");
+			assert(person.name === "Bob", "We can call it by name.");
+			assert(!(person instanceof Ninja), "But it’s not a Ninja");
+			assert(typeof person.wieldWeapon === "undefined", "And it cannot wield a weapon");
+
+			const ninja = new Ninja("Yoshi", "Wakizashi");
+			assert(ninja instanceof Ninja, "A ninja’s a ninja");
+			assert(ninja.wieldWeapon(), "That can wield a weapon");
+			assert(ninja instanceof Person, "But it’s also a person");
+			assert(ninja.name === "Yoshi" , "That has a name");
+			assert(ninja.dance(), "And enjoys dancing");
+		</script>
 	</body>
 </html>

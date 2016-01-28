@@ -2,36 +2,22 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Sending data to and recieving data from a generator</title>
+		<title>Achieving inheritance with prototypes</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function* NinjaGenerator(action) {								//#A
-			  var imposter = yield ("Hatori " + action); 			//#B
+			function Person(){}
+ 			Person.prototype.dance = function(){};
 
-			  assert(imposter === "Hanzo", 											//#C
-			        "The generator has been infiltrated"); 			//#C
+ 			function Ninja(){}
+ 			Ninja.prototype = new Person();
 
-			  yield ("Yoshi (" + imposter + ") " + action);
-		  }
-			 
-			var ninjaIterator = NinjaGenerator("skulk"); 			//#D
-			       
-			var result1 = ninjaIterator.next();				//#E
-			assert(result1.value == "Hatori skulk", "Hatori is skulking");	//#E
-
-			var result2 = ninjaIterator.next("Hanzo");	  			//#F
-			assert(result2.value === "Yoshi (Hanzo) skulk", 			//#F
-			       "We have an imposter!"); 					//#F
-
-			//#A A generator can receive standard arguments, like any other function
-			//#B The magic happens. By yielding a value, the generator returns an intermediary calculation. By calling the iterator’s next method with an argument, we send data back to the generator
-			//#C The value sent over next becomes the value of the yielded expression, so our imposter is Hanzo
-			//#D Normal argument passing
-			//#E Trigger the execution of the generator and check did we get the correct value
-			//#G Send data to the generator as an argument to the next method and check if the value was correctly transferred.
+ 			const ninja = new Ninja();
+ 			assert(ninja instanceof Ninja,"ninja receives functionality from the Ninja prototype" );
+ 			assert(ninja instanceof Person, "... and the Person prototype" );
+ 			assert(ninja instanceof Object, "... and the Object prototype" );
 		</script>
 	</body>
 </html>

@@ -2,43 +2,26 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Controlling a generator through an iterator object</title>
+		<title>Creating a new instance with a prototyped method</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function* WeaponGenerator(){  		//#A
-			  yield "Katana"; 		  		//#A
-			  yield "Wakizashi";		  	//#A
-			}
+			function Ninja(){}
+			Ninja.prototype.swingSword = function(){
+			  return true;
+			};
 
-			var weaponsIterator = WeaponGenerator();  //#B
+			const ninja1 = Ninja();
+			assert(ninja1 === undefined,
+			       "No instance of Ninja created.");
 
-			var result1 = weaponsIterator.next();    	//#C
-			assert(typeof result1 == "object" 	    	//#D
-			    && result1.value === "Katana"  	//#D
-			    && !result1.done,   			//#D
-			    "Katana received!");    		//#D
-
-			var result2 = weaponsIterator.next();    	//#E
-			assert(typeof result2 == "object" 		//#E
-			    && result2.value === "Wakizashi"   	//#E
-			    && !result2.done,   			//#E
-			    "Wakizashi received!");    		//#E
-
-			var result3 = weaponsIterator.next();   	//#F
-			assert(typeof result3 == "object" 	  	//#F
-			    && result3.value === undefined  	//#F
-			    && result3.done,    			//#F
-			    "There are no more results!");    	//#F
-
-			//#A Define a generator function that will produce a sequence of two weapons
-			//#B Calling a generator function creates an iterator object through which we control the execution of the generator.
-			//#C Calling the iterator’s next method requests a value from the generator
-			//#D The result is an object which contains the returned value and an indicator that tells us whether the generator has more values
-			//#E  Calling next again, we get another value from the generator
-			//#F Once there’s no more code to execute, the generator returns the value undefined and indicates that it is done.
+			const ninja2 = new Ninja();
+			assert(ninja2 !== null &&
+			       ninja2.swingSword &&
+			       ninja2.swingSword(),
+			       "Instance exists and method is callable." );
 		</script>
 	</body>
 </html>

@@ -2,26 +2,34 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Creating a simple promise</title>
+		<title>Fixing the constructor property</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			var ninjaPromise = new Promise(function(resolve, reject){		//#A
-			  resolve("Hatori");  						//#B
-			  //reject("An error resolving a promise!");			//#B
+			"use strict";
+			
+			function Person(){}
+			Person.prototype.dance = function(){};
+
+			function Ninja(){}
+			Ninja.prototype = new Person();
+
+			Object.defineProperty(Ninja.prototype, "constructor", {
+			  enumerable: false,
+			  value: Ninja,
+			  writable: true
 			});
 
-			ninjaPromise.then(function(ninja) {				//#C
-			  assert(ninja === "Hatori", "We were promised Hatori!");		//#C
-			}, function(err){							//#D
-			  assert(false, "There shouldn’t be an error")			//#D
-			});									//#D
-			//#A Create a promise by calling a built-in Promise constructor and passing in a callback function with two parameters: resolve and reject.
-			//#B A promise is successfully resolved by calling the passed-in resolve function (and rejected by calling the reject function)
-			//#C By using the then() method on a promise, we can pass in two callbacks, the first will be called if a promise is successfully resolved
-			//#D And the second will be called if an error occurs
+			const ninja = new Ninja();
+
+			assert(ninja.constructor === Ninja,
+			      "Connection from ninja instances to Ninja constructor reestablished!");
+
+			for(let prop in Ninja.prototype){
+			  assert(prop === "dance", "The only enumerable property is dance!");
+			}
 		</script>
 	</body>
 </html>
