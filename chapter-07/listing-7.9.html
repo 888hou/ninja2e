@@ -21,7 +21,7 @@
 			  writable: true
 			});
 
-			assert(ninja.sneaky, "We can access the new property");
+			assert("sneaky" in ninja, "We can access the new property");
 
 			for(let prop in ninja){
 			  assert(prop !== undefined, "An enumerated property: " + prop);
