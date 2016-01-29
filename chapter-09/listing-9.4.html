@@ -2,45 +2,34 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Defining getters and setters with Object.defineProperty</title>
+		<title>Simple prototypes</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function Ninja() {							//#A
-			    var _skillLevel = 0;						//#B
+			const ninjas = ["Yagyu", "Kumawakamaru", "Hattori", "Fuma"];
 
-			    Object.defineProperty(this, 'skillLevel', {			//#C
-			      get: function() {						//#D
-			        assert(true, "The get method is called");			//#D
-			        return _skillLevel;						//#D
-			      },								//#D
-			      set: function(value){					       //#E
-			        assert(true, "The set method is called");			//#E
-			        _skillLevel = value;						//#E
-			      }									//#E
-			    });
-			  }
+			const removedItems = ninjas.splice(1, 1);
 
-			  var ninja = new Ninja();						//#F
+			assert(removedItems.length === 1, "One item was removed");
+			assert(removedItems[0] === "Kumawakamaru");
 
-			  assert(typeof ninja._skillLevel == "undefined", 			//#G
-			         "We cannot access a 'private' property");			//#G
-			  assert(ninja.skillLevel == 0, "The getter works fine!");		//#G
+			assert(ninjas.length === 3, "There are now three items in the array");
+			assert(ninjas[0] === "Yagyu", "The first item is still Yagyu");
+			assert(ninjas[1] === "Hattori", "Hattori is now in the second place");
+			assert(ninjas[2] === "Fuma", "And Fuma is in the third place");
 
-			  ninja.skillLevel = 10;						//#H
-			  assert(ninja.skillLevel == 10, "The value was updated");		//#H
+			removedItems = ninjas.splice(1, 2, "Mochizuki", "Yoshi", "Momochi");
+			assert(removedItems.length === 2, "Now, we've removed two items");
+			assert(removedItems[0] === "Hattori", "Hattori was removed");
+			assert(removedItems[1] === "Fuma", "Fuma was removed");
 
-			/*#A Define a constructor function
-			#B Define a ‘private’ variable that will be accessible through function closures 
-			#C Use the built-in Object.defineProperty to define a skillLevel property
-			#D A get method that will be called whenever we read the skillLevel property
-			#E A set method that will be called whenever we assign a value to the skillLevel property
-			#F Create a new Ninja instance
-			#G The private variable is not accessible directly, but through the skillLevel getter
-			#H The set method is implicitly called when assigning to the skillLevel property*/
-
+			assert(ninjas.length === 4, "We've inserted some new items");
+			assert(ninjas[0] === "Yagyu", "Yagyu is still here");
+			assert(ninjas[1] === "Mochizuki", "Mochizuki also");
+			assert(ninjas[2] === "Yoshi", "Yoshi also");
+			assert(ninjas[3] === "Momochi", "and Momochi");
 		</script>
 	</body>
 </html>

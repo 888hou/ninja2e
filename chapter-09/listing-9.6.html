@@ -2,40 +2,27 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Defining computed properties</title>
+		<title>Naive extraction of array of weapons</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			var shogun = {
-			  name: "Yoshiaki",
-			  clan: "Ashikaga",
-			  get fullTitle(){						//#A
-			    return this.name + " " + this.clan;			//#A
-			  },								//#A
-			  set fullTitle(value) {					//#B
-			    var segments = value.split(" ");			//#B
-			    this.name = segments[0];				//#B
-			    this.clan = segments[1];				//#B
-			  }								//#B
-			};
+			const ninjas = [
+  				{name: "Yagyu", weapon: "shuriken"},
+     			{name: "Yoshi", weapon: "katana"},
+     			{name: "Kuma", weapon: "wakizashi"}
+			];
 
-			assert(shogun.name === "Yoshiaki", "Our shogun Yoshiaki");	//#C	
-			assert(shogun.clan === "Ashikaga", "Of clan Ashikaga");		//#C
-			assert(shogun.fullTitle == "Yoshiaki Ashikaga", 			//#C
-			       "The full name is now Yoshiaki Ashikaga");			//#C
+			const weapons = [];
+			ninjas.forEach(ninja => {
+  				weapons.push(ninja.weapon);
+			});
 
-			shogun.fullTitle = "Ieyasu Tokugawa";				//#D
-			assert(shogun.name === "Ieyasu", "Our shogun Ieyasu");		//#D
-			assert(shogun.clan === "Tokugawa", "Of clan Tokugawa");		//#D
-			assert(shogun.fullTitle == "Ieyasu Tokugawa", 			//#D
-			       "The full name is now Ieyasu Tokugawa");			//#D
-			/*#A Defines a gettter method on a fullTitle property of an object literal that calculates the value by concatenating two object properties
-			#B Defines a settter method on a fullTitle property of an object literal that splits the passed in value and updates two standard properties.
-			#C The name and clan properties are normal properties whose values are directly obtained. Accessing the fullTitle property calls the get method which computes the value.
-			#D Assigning a value to the fullTitle property calls the set method which computes and assigns new values to the name and clan properties.*/
-
-		</script>		
+			assert(weapons[0] === "shuriken"
+			    && weapons[1] === "katana"
+			    && weapons[2] === "wakizashi"
+			    && weapons.length === 3, "The new array contains all weapons");
+		</script>
 	</body>
 </html>

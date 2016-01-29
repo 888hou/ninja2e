@@ -2,39 +2,30 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Using proxies makes it easier to add logging to objects </title>
+		<title>Finding array items</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function makeLoggable(target){			//#A
-			  return new Proxy(target, {			//#B
-			    get: function(target, property){		//#C
-			      assert(true, "Reading " + property);		//#C
-			      return target[property];			//#C
-			    },						//#C
+			const ninjas = [
+			  {name: "Yagyu", weapon: "shuriken"},
+		      {name: "Yoshi" },
+		      {name: "Kuma", weapon: "wakizashi"}
+			];
 
-			    set: function(target, property, value){			  //#D
-			      assert(true, "Writing value " + value + " to " + property);  //#D
-			 	 target[property] = value;					  //#D
-			    }								  //#D
-			  });
-			}
+			const ninjaWithWakizashi = ninjas.find(ninja => ninja.weapon === "wakizashi");
 
-			var ninja = { name: "Yoshi"};			//#E
-			ninja = makeLoggable(ninja);			//#E
+			assert(ninjaWithWakizashi.name === "Kuma" && ninjaWithWakizashi.weapon === "wakizashi",  "Kuma is wielding a wakizashi");
 
-			assert(ninja.name == "Yoshi", "Our ninja Yoshi");	//#F
-			ninja.weapon = "sword";				//#F
+			const ninjaWithKatana = ninjas.find(ninja => ninja.weapon === "katana");
 
-			/*#A Define a function that takes a target object and makes it loggable
-			#B Creates a new proxy with that target object
-			#C A get trap that logs property reads
-			#D A set trap that logs the property writes
-			#E Create a new ninja object that will serve as our target object and make it loggable
-			#F Read and write to our proxy object. These actions are logged by the proxy traps*/
+			assert(ninjaWithKatana === undefined,  "We couldn’t find a ninja that wields a katana");
 
+			const armedNinjas = ninjas.filter(ninja => "weapon" in ninja);
+
+			assert(armedNinjas.length === 2, "There are two armed ninjas:");
+			assert(armedNinjas[0].name === "Yagyu" && armedNinjas[1].name === "Kuma", "Yagyu and Kuma");
 		</script>
 	</body>
 </html>

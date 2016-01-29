@@ -2,35 +2,29 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Using getters and setters to guard private properties</title>
+		<title>Creating arrays</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			function Ninja () {
-			  var skillLevel;							//#A
+			const ninjas = ["Kuma", "Hattori", "Yagyu"];
+			const samurai = new Array("Oda", "Tomoe");
 
-			  this.getSkillLevel = function(){					//#B
-			       return skillLevel;						//#B
-			  };									//#B
+			assert(ninjas.length === 3, "There are three ninjas");
+			assert(samurai.length === 2, "And only two samurai");
 
-			  this.setSkillLevel = function(value){				//#C
-			    skillLevel = value;						//#C
-			  }									//#C
-			}
+			assert(ninjas[0] === "Kuma", "Kuma is the first ninja");
+			assert(samurai[samurai.length-1] === "Tomoe", "Tomoe is the last samurai");
+			assert(ninjas[4] === undefined, "We get undefined if we try to access an out of bounds index");
 
-			var ninja = new Ninja();
-			ninja.setSkillLevel(100);						//#D
-			assert(ninja.getSkillLevel() == 100,    				//#E
-			      "Our ninja is at level 100!");				//#E
+			ninjas[4] = "Ishi";
+			assert(ninjas.length === 5,  "Arrays are automatically expanded");
 
-			//#A Define a private skillLevel variable
-			//#B The getter method controls our access our private skillLevel variable
-			//#C The setter method controls the values we can assign to skillLevel
-			//#D Set a new value of skillLevel through the setter method.
-			//#E Retrieve the value of skillLevel with the getter method
-
+			ninjas.length = 2;
+			assert(ninjas.length === 2, "There are only two ninjas now");
+			assert(ninjas[0] === "Kuma" && ninjas[1] === "Hattori", "Kuma and Hattori");
+			assert(ninjas[2] === undefined, "But we’ve lost Yagyu");
 		</script>
 	</body>
 </html>

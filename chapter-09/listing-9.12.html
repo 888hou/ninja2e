@@ -2,66 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Negative array indexes with proxies</title>
+		<title>Aggregating items with reduce</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-		function createNegativeArrayProxy(array){
-		  if (!Array.isArray(array)) {			//#A
-		    throw new TypeError('Expected an array');	//#A	
-		  }							//#A
-		  
-		  return new Proxy(array, {				//#B
-		    get: function (target, index) {				//#C
-		      index = +index;		    	
-		      return target[index < 0 ? target.length + index : index]; //#D
-		    },
-		    set: function (target, index, val) {				//#E
-		     index = +index;
-		     return target[index < 0 ? target.length + index : index] = val;
-		    }
-		  });
-		}
+			const numbers = [1, 2, 3, 4];
 
-		var ninjas = ["Yoshi", "Kuma", "Hattori"];			//#F
-		var proxiedNinjas = createNegativeArrayProxy(ninjas);	//#G
+			const sum = numbers.reduce((aggregated, number) => 
+				                        aggregated + number, 0);
 
-		assert(ninjas[0] == "Yoshi" && ninjas[1] == "Kuma" 		//#H
-		    && ninjas[2] == "Hattori",					//#H
-		       "Array items accessed through positive indexes");  	//#H
-
-		assert(proxiedNinjas[0] == "Yoshi" && proxiedNinjas[1] == "Kuma"     //#H
-		    && proxiedNinjas [2] == "Hattori",				     //#H
-		       "Array items accessed through positive indexes on a proxy");   //#H
-
-		assert(typeof ninjas[-1] == "undefined" 				//#I
-		    && typeof ninjas[-2] == "undefined" 
-		    && typeof ninjas[-3] == "undefined",
-		       "Items cannot be accessed through negative indexes on an array");
-
-		assert(proxiedNinjas[-1] == "Hattori"				//#J
-		    && proxiedNinjas[-2] == "Kuma"
-		    && proxiedNinjas[-3] == "Yoshi");
-
-		proxiedNinjas[-1] = "Hachi";					//#K
-		assert(proxiedNinjas[-1] == "Hachi" && ninjas[2] == "Hachi",	//#K
-		       "Items can be changed through negative indexes");		//#K
-
-		/*#A If our target object is not an array, throw an exception
-		#B Return a new proxy that takes in the array and uses it as a proxy target
-		#C The get trap activated whenever an array index is read
-		#D If the read index is a negative number read from the back of the array, and if it is a positive number, access it normally
-		#E The set trap activated whenever an array index is written to
-		#F Create a standard array
-		#G Pass it in to our function that will create a proxy to that array
-		#H Check that we can access array items both through the original array, as well as through the proxy
-		#I Check that we cannot access array items through negative indexes in a standard array
-		#J But that we can do it through our proxy, since we’ve supplied a get trap that handles the case
-		#K We can also modify array items from the back, only if we go through the proxy*/
-
+			assert(sum === 10, "The sum of first four numbers is 10")
 		</script>
-		<p>December 2015, Works in Firefox</p>
 	</body>
 </html>

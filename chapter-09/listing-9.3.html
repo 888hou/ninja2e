@@ -2,39 +2,22 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Defining getters and setters with ES6 classes</title>
+		<title>Naive item removal</title>
 		<link rel="stylesheet" href="../assert.css">
 		<script src="../assert.js"></script>
 	</head>
 	<body>
 		<script>
-			"use strict";
-			class NinjaCollection {
-			  constructor(){
-			    this.ninjas = ["Yoshi", "Kuma", "Hattori"];
-			  }
-			  get firstNinja(){				 //#A
-			    assert(true, "Getting firstNinja");    //#A
-			    return this.ninjas[0];			 //#A
-			  } 					 	 //#A
-			  set firstNinja(value){			   //#A
-			    assert(true, "Setting firstNinja");      //#A
-			    this.ninjas[0] = value;			   //#A
-			  }
-			}
-			var ninjaCollection = new NinjaCollection();
+			const ninjas = ["Yagyu", "Kumawakamaru", "Hattori", "Fuma"];
 
-			assert(ninjaCollection.firstNinja == "Yoshi", 	
-			       "Yoshi is the first ninja");		
+			delete ninjas[1];
 
-			ninjaCollection.firstNinja = "Hachi";		
-				
-			assert(ninjaCollection.firstNinja == "Hachi"	
-			    && ninjaCollection.ninjas[0] ==  "Hachi",	
-			       "Now Hachi is the first ninja");
+			assert(ninjas.length === 4, "Length still reports that there are 4 items");
 
-			//#A Defines a getter and a setter within an ES6 class
-
+			assert(ninjas[0] === "Yagyu", "First item is Yagyu");
+			assert(ninjas[1] === undefined, "We've simply created a hole");
+			assert(ninjas[2] === "Hattori", "Hattori is still the third item");
+			assert(ninjas[3] === "Fuma", "And Fuma is the last item");
 		</script>
 	</body>
 </html>
