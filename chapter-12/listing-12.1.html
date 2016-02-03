@@ -8,7 +8,8 @@
 	</head>
 	<body>
 		<script>
-			const tags = /^(abbr|br|col|img|input|link|meta|param|hr|area|embed)$/i; 
+			const tags = /^(area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)$/i; 
+			
 			function convert(html) {                                               
 			  return html.replace(/(<(\w+)[^>]*?)\/>/g, (all, front, tag) => {
 			      return tags.test(tag) ? all :
