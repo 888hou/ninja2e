@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<script>
+		 "use strict";
 		  function getNodes(htmlString, doc, fragment){
 		    const map = {                                                      
 		      "<td":[3,"<table><tbody><tr>","</tr></tbody></table>"],         
@@ -26,7 +27,7 @@
 		    };
 		    
 		    const tagName = htmlString.match(/<\w+/);
-		    const mapEntry = tagName ? map[tagName[0]] : null;
+		    let mapEntry = tagName ? map[tagName[0]] : null;
 		    
 		    if  (!mapEntry) { mapEntry = [0, " "," " ];}
 		    
@@ -45,6 +46,6 @@
 		    return div.childNodes;
 		  }
 		</script>
-		<p>This could doesn't output anything</p>
+		<p>Doesn't output anything</p>
 	</body>
 </html>
