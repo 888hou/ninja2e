@@ -8,23 +8,25 @@
 	</head>
 	<body>
 		<script>
-			var MouseCounterModule = function() {
-			  var numClicks = 0;
-			  var handleClick = function(){
+			"use strict";
+			
+			const MouseCounterModule = function() {
+			  let numClicks = 0;
+			  const handleClick = () => {
 			    alert(++numClicks);
 			  };
 			  
 			  return {
-			    countClicks: function(){
+			    countClicks: () => {
 			      document.addEventListener("click", handleClick);
 			    }
 			  };
 			}();
 
-			assert(typeof MouseCounterModule.countClicks == "function",
+			assert(typeof MouseCounterModule.countClicks === "function",
 			       "We can access module functionality");
-			assert(typeof MouseCounterModule.numClicks == "undefined"
-			    && typeof MouseCounterModule.handleClick == "undefined",
+			assert(typeof MouseCounterModule.numClicks === "undefined"
+			    && typeof MouseCounterModule.handleClick === "undefined",
 			       "We cannot access internal module details");
 		</script>
 	</body>

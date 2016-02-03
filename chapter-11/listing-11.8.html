@@ -9,20 +9,17 @@
 		<script src="es6-module-loader.js"></script>
 	</head>
 	<body>
-		<script>
-			assert(true, "Has to be run on a server");
-		</script>
 		<script type="module">		
 			import * as ninjaModule from "ninja.js";
 
-			assert(ninjaModule.message == "Hello",
+			assert(ninjaModule.message === "Hello",
 			      "We can access the imported variable");
-			assert(ninjaModule.sayHiToNinja() == "Hello Yoshi",
+			assert(ninjaModule.sayHiToNinja() === "Hello Yoshi",
 			      "We can say hi to Yoshi from outside the module");
 
-			assert(typeof ninjaModule.ninja == "undefined",
+			assert(typeof ninjaModule.ninja === "undefined",
 			      "But we cannot access Yoshi directly");
-
 		</script>
+		<p>Has to be executed on a server.</p>
 	</body>
 </html>

@@ -10,10 +10,10 @@
 	</head>
 	<body>
 		<script>
-		assert(true, "Has to be run on a server");
-		System.import("ninja.js").then(function(module){
-			assert(module.sayHiToNinja() == "Hello Yoshi", "Accessed module function");
-		});
+			System.import("ninja.js").then(module => {
+				assert(module.sayHiToNinja() === "Hello Yoshi", "Accessed module function");
+			});
 		</script>
+		<p>Has to be executed on a server</p>
 	</body>
 </html>

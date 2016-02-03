@@ -8,34 +8,35 @@
 	</head>
 	<body>
 		<script>
-		var MouseCounterModule = function(){
-		  var numClicks = 0;
-		  var handleClick = function(){
+		"use strict";
+		const MouseCounterModule = function(){
+		  let numClicks = 0;
+		  const handleClick = () => {
 		    alert(++numClicks);
 		  };
 		  
 		  return {
-		    countClicks: function(){					
+		    countClicks: () => {
 		      document.addEventListener("click", handleClick);
 		    }
 		  };
 		}();
 
 		(function(module) {
-		  var numScrolls = 0;
-		  var handleScroll = function(){
+		  let numScrolls = 0;
+		  const handleScroll = () => {
 		    alert(++numScrolls);
 		  }
 
-		  module.countScrolls = function(){
+		  module.countScrolls = () => {
 		    document.addEventListener("wheel", handleScroll);
 		  };
 		})(MouseCounterModule);
 
-		assert(typeof MouseCounterModule.countClicks == "function",
+		assert(typeof MouseCounterModule.countClicks === "function",
 		       "We can access initial module functionality");
 
-		assert(typeof MouseCounterModule.countScrolls == "function",
+		assert(typeof MouseCounterModule.countScrolls === "function",
 		       "We can access augmented module functionality");	
 
 		</script>

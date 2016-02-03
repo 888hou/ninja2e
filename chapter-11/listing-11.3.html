@@ -9,30 +9,31 @@
 	</head>
 	<body>
 		<script>
+			"use strict";
+			
 			requirejs.config({
 			    paths: {
 			        "jquery": "../jquery"
 			    }
 			});
 			
-			define('MouseCounterModule',['jquery'], function($){
-			  var numClicks = 0;
-			  var handleClick = function(){
+			define('MouseCounterModule',['jquery'], $ => {
+			  let numClicks = 0;
+			  const handleClick = () => {
 			    alert(++numClicks);
 			  };
 			  
 			  return {
-			    countClicks: function(){					
+			    countClicks: () => {
 			      $(document).on("click", handleClick);
 			    }
 			  };
 			});
 
-			require(['MouseCounterModule'], function(MouseCounterModule){
+			require(['MouseCounterModule'], MouseCounterModule => {
 				MouseCounterModule.countClicks();
 			});
-
-			assert(true, "Has to be run on a server. Click on the page");
 		</script>
+		<p>Has to be executed on a server. Click on the page!</p>
 	</body>
 </html>

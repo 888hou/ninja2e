@@ -4,20 +4,19 @@
 		<meta charset="utf-8">
 		<title>Using CommonJS to define a module</title>
 		<link rel="stylesheet" href="../assert.css">
+		<script src="traceur.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.js"></script>
 		<script src="../assert.js"></script>
 		<script src="../system.js"></script>
 	</head>
 	<body>
 		<script>
-		assert(true, "Has to be run on a server");
-		
 		System.config({
-		    transpiler: 'babel'
+		    transpiler: 'traceur'
 		});
 		
 		System.import("MouseCounterModule.js");
-
 		</script>
+		<p>Has to be executed on a server</p>
 	</body>
 </html>
