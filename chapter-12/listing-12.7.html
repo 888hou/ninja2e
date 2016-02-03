@@ -9,8 +9,8 @@
 	<body>
 		<div style="color:red;font-size:10px;background-color:#eee;"></div>
 		<script>
-		  function style(element,name,value){
-		    name = name.replace(/-([a-z])/ig, function(all,letter){
+		  function style(element,name,value) {
+		    name = name.replace(/-([a-z])/ig, (all,letter) => {
 		      return letter.toUpperCase();
 		    });
 		    if (typeof value !== 'undefined') {
@@ -18,11 +18,11 @@
 		    }
 		    return element.style[name];
 		  }
-		  document.addEventListener("DOMContentLoaded", function(){
-		    var div = document.querySelector("div");
-		    assert(style(div,'color') == "red", style(div,'color'));
-		    assert(style(div,'font-size') == "10px", style(div,'font-size'));
-		    assert(style(div,'background-color') == 
+		  document.addEventListener("DOMContentLoaded", () => {
+		    const div = document.querySelector("div");
+		    assert(style(div,'color') === "red", style(div,'color'));
+		    assert(style(div,'font-size') === "10px", style(div,'font-size'));
+		    assert(style(div,'background-color') === 
 		    "rgb(238, 238, 238)",style(div,'background-color'));
 		  });
 		</script>

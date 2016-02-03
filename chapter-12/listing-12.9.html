@@ -22,53 +22,60 @@
 		  placerat nulla. Aenean tincidunt lorem eu dolor commodo
 		  ornare.
 		</div>
-		<script type="text/javascript">
-		  (function(){                                      		//#A
-		    var PROPERTIES = {                              		//#B
+		<script>
+		  "use strict";
+		  
+		  (function(){
+		    const PROPERTIES = {
 		      position: "absolute",
 		      visibility: "hidden",
 		      display: "block"
 		    };
-		    window.getDimensions = function(element) {       		//#C
-		      var previous = {};                             		//#D
-		      for (var key in PROPERTIES) {
+		    window.getDimensions = element => {
+		      const previous = {};
+		      for (let key in PROPERTIES) {
 		        previous[key] = element.style[key];
-		        element.style[key] = PROPERTIES[key];         		//#E
+		        element.style[key] = PROPERTIES[key];
 		      }
-		      var result = {                                  		//#F
+		      
+		      const result = {
 		        width: element.offsetWidth,
 		        height: element.offsetHeight
 		      };
-		      for (key in PROPERTIES) {                             	//#G
+		      
+		      for (let key in PROPERTIES) {
 		        element.style[key] = previous[key];
 		      }
 		      return result;
 		    };
 		  })();
-		  document.addEventListener("DOMContentLoaded", function() {
-		    setTimeout(function(){
-		      var withPole = document.getElementById('withPole'),
-		          withShuriken = document.getElementById('withShuriken');
-		      assert(withPole.offsetWidth == 41,                 
+		  
+		  document.addEventListener("DOMContentLoaded", () => {
+		    setTimeout(() => {
+		      const withPole = document.getElementById('withPole'),
+		            withShuriken = document.getElementById('withShuriken');
+		      
+		      assert(withPole.offsetWidth === 41,                 
 		             "Pole image width fetched; actual: " +
-		             withPole.offsetWidth + ", expected: 41");                 //#H
-		      assert(withPole.offsetHeight == 48,
+		             withPole.offsetWidth + ", expected: 41");
+		      assert(withPole.offsetHeight === 48,
 		             "Pole image height fetched: actual: " +
 		             withPole.offsetHeight + ", expected 48");
-		      assert(withShuriken.offsetWidth == 36,                           //#I
+		      assert(withShuriken.offsetWidth === 36,
 		             "Shuriken image width fetched; actual: " +
 		             withShuriken.offsetWidth + ", expected: 36");
-		      assert(withShuriken.offsetHeight == 48,
+		      assert(withShuriken.offsetHeight === 48,
 		             "Shuriken image height fetched: actual: " +
 		             withShuriken.offsetHeight + ", expected 48");
-		      var dimensions = getDimensions(withShuriken);                    //#J
-		      assert(dimensions.width == 36,                                   //#K
+		      
+		      const dimensions = getDimensions(withShuriken);
+		      assert(dimensions.width === 36,
 		             "Shuriken image width fetched; actual: " +
 		             dimensions.width + ", expected: 36");
-		      assert(dimensions.height == 48,
+		      assert(dimensions.height === 48,
 		             "Shuriken image height fetched: actual: " +
 		             dimensions.height + ", expected 48");
-		    },3000);
+		    }, 3000);
 		  });
 		</script>
 

@@ -9,7 +9,7 @@
 	<body>
 		<script>
 		  function getNodes(htmlString, doc, fragment){
-		    var map = {                                                      
+		    const map = {                                                      
 		      "<td":[3,"<table><tbody><tr>","</tr></tbody></table>"],         
 		      "<th":[3,"<table><tbody><tr>","</tr></tbody></table>"],         
 		      "<tr":[2,"<table><thead>","</thead></table>"],                  
@@ -24,12 +24,18 @@
 		      "<col":[2,"<table><tbody></tbody><colgroup>","</colgroup></table>"],
 		      "<link":[3,"<div></div><div>","</div>"]
 		    };
-		    var tagName = htmlString.match(/<\w+/);
-		    var mapEntry = tagName ? map[tagName[0]] : null;
+		    
+		    const tagName = htmlString.match(/<\w+/);
+		    const mapEntry = tagName ? map[tagName[0]] : null;
+		    
 		    if  (!mapEntry) { mapEntry = [0, " "," " ];}
-		    var div = (doc || document).createElement("div");
+		    
+		    const div = (doc || document).createElement("div");
+		    
 		    div.innerHTML = mapEntry[1] + htmlString + mapEntry[2];
+		    
 		    while (mapEntry[0]--) { div = div.lastChild;}
+		    
 		    if (fragment) {
 		      while (div.firstChild) {
 		        fragment.appendChild(div.firstChild);
@@ -38,8 +44,7 @@
 
 		    return div.childNodes;
 		  }
-
-		  assert(true, "Doesn't output anything");
 		</script>
+		<p>This could doesn't output anything</p>
 	</body>
 </html>

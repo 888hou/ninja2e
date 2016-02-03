@@ -14,17 +14,17 @@
   			忍者パワー
 		</div>
 		<script>
-		  document.addEventListener("DOMContentLoaded", function(){
-		    var div = document.querySelector("div");
-		    assert(div.style.color == 'rgb(0, 0, 0)' ||
-		           div.style.color == '#000',
+		  document.addEventListener("DOMContentLoaded", () => {
+		    const div = document.querySelector("div");
+		    assert(div.style.color === 'rgb(0, 0, 0)' ||
+		           div.style.color === '#000',
 		           'color was recorded');
-		    assert(div.style.fontSize == '1.8em',
+		    assert(div.style.fontSize === '1.8em',
 		           'fontSize was recorded');
-		    assert(div.style.borderWidth == '0', 
+		    assert(div.style.borderWidth === '0', 
 		           'borderWidth was recorded');
 		    div.style.borderWidth = "4px";
-		    assert(div.style.borderWidth == '4px',
+		    assert(div.style.borderWidth === '4px',
 		           'borderWidth was replaced');
 		  });
 		</script>
