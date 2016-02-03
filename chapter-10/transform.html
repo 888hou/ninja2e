@@ -10,16 +10,14 @@
 		</style>
 		<script src="../assert.js"></script>
 	</head>
-
 	<body>
-		<div id="square" style="transform:translateY(15px);">
-		</div>
+		<div id="square" style="transform:translateY(15px);"></div>
 		<script>
 			function getTranslateY(elem){
-				var transformValue = elem.style.transform;
+				const transformValue = elem.style.transform;
 
 				if(transformValue){
-					var match = transformValue.match(/translateY\(([^\)]+)\)/);
+					const match = transformValue.match(/translateY\(([^\)]+)\)/);
 
 					return match ? match[1] : "";
 				}
@@ -27,9 +25,9 @@
 				return "";
 			}
 
-			var square = document.getElementById("square");
+			const square = document.getElementById("square");
 			
-			assert(getTranslateY(square) == "15px", 
+			assert(getTranslateY(square) === "15px", 
 				  "We've extracted the translateY value");
 		</script>
 	</body>
