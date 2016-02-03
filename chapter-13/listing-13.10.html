@@ -15,7 +15,7 @@
 
 		<script>
 		  function triggerEvent(target, eventType, eventDetail){
-		    var event = new CustomEvent(eventType, {
+		    const event = new CustomEvent(eventType, {
 		      detail: eventDetail
 		    });
 		    target.dispatchEvent(event);
@@ -23,22 +23,22 @@
 
 		  function performAjaxOperation() {
 		    triggerEvent(document, 'ajax-start', { url: 'my-url'});
-		    setTimeout(function(){
+		    setTimeout(() => {
 		      triggerEvent(document, 'ajax-complete');
 		    },5000);
 		  }
 
-		  var button = document.getElementById('clickMe');
-		  button.addEventListener('click', function(){
+		  const button = document.getElementById('clickMe');
+		  button.addEventListener('click', () => {
 		    performAjaxOperation();
 		  });
 
-		  document.addEventListener('ajax-start', function(e){
+		  document.addEventListener('ajax-start', e => {
 		    document.getElementById('whirlyThing').style.display = 'inline-block';
-		    assert(e.detail.url == 'my-url', 'We can pass in event data');
+		    assert(e.detail.url === 'my-url', 'We can pass in event data');
 		  });
 
-		  document.addEventListener('ajax-complete', function(e){
+		  document.addEventListener('ajax-complete', e => {
 		      document.getElementById('whirlyThing').style.display = 'none';
 		  });
 		</script>

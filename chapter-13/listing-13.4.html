@@ -9,18 +9,18 @@
 	<body>
 		<table><tbody></tbody></table>
 		<script>
-		  var tbody = document.querySelector("tbody");
-		  for (var i = 0; i < 60000; i++) {
-		    var tr = document.createElement("tr");
-		    for (var t = 0; t < 6; t++) {
-		      var td = document.createElement("td");
+		  "use strict";
+		  const tbody = document.querySelector("tbody");
+		  for (let i = 0; i < 60000; i++) {
+		    let tr = document.createElement("tr");
+		    for (let t = 0; t < 6; t++) {
+		      const td = document.createElement("td");
 		      td.appendChild(document.createTextNode(i + "," + t));
 		      tr.appendChild(td);
 		    }
 		    tbody.appendChild(tr);
 		  }
-
-			assert(true, "Creates a large table");
 		</script>
+		<p>JS code creates a large table</p>
 	</body>
 </html>

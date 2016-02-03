@@ -9,18 +9,21 @@
 	<body>
 		<table><tbody></tbody></table>
 		<script>
-		  var tbody = document.querySelector("tbody");
-		  var rowCount = 60000;
-			var divideInto = 4;
-			var chunkSize = rowCount/divideInto;
-			var iteration = 0;
-			var table = document.getElementsByTagName("tbody")[0];
+		  "use strict";
+		  
+		  const tbody = document.querySelector("tbody");
+		  const rowCount = 60000;
+		  const divideInto = 4;
+		  const chunkSize = rowCount/divideInto;
+		  let iteration = 0;
+		  
+		  const table = document.getElementsByTagName("tbody")[0];
 			setTimeout(function generateRows(){
-			  var base = chunkSize * iteration;
-			  for (var i = 0; i < chunkSize; i++) {
-			    var tr = document.createElement("tr");
-			    for (var t = 0; t < 6; t++) {
-			      var td = document.createElement("td");
+			  const base = chunkSize * iteration;
+			  for (let i = 0; i < chunkSize; i++) {
+			    const tr = document.createElement("tr");
+			    for (let t = 0; t < 6; t++) {
+			      const td = document.createElement("td");
 			      td.appendChild(
 			        document.createTextNode((i + base) + "," + t +
 			                                 "," + iteration));
@@ -32,8 +35,7 @@
 			  if (iteration < divideInto)
 			    setTimeout(generateRows, 0);
 			},0);
-
-			assert(true, "Creates a large table");
 		</script>
+		<p>JS code creates a large table</p>
 	</body>
 </html>

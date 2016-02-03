@@ -15,22 +15,21 @@
       <div id="innerContainer"></div>
     </div>
     <script>
-      var outerContainer = document.getElementById("outerContainer");
-      var innerContainer = document.getElementById("innerContainer");
+      const outerContainer = document.getElementById("outerContainer");
+      const innerContainer = document.getElementById("innerContainer");
 
-      outerContainer.addEventListener("click", function(){
-        assert(true, "Outer container click");
+      outerContainer.addEventListener("click", () => {
+        report("Outer container click");
       });
 
-      innerContainer.addEventListener("click", function(){
-        assert(true, "Inner container click");
+      innerContainer.addEventListener("click", () => {
+        report("Inner container click");
       });
 
-      document.addEventListener("click", function(){
-        assert(true, "Document click");
+      document.addEventListener("click", () => {
+        report("Document click");
       });
-
-			assert(true, "Click on the square");
     </script>
+    <p>Click on the square</p>
 	</body>
 </html>

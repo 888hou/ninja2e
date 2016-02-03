@@ -9,15 +9,14 @@
 	<body>
 		<button id="myButton">Click</button>
 		<script>
-		  var myButton = document.getElementById("myButton");
+		  const myButton = document.getElementById("myButton");
 		  myButton.addEventListener("click", function myHandler(event){
-		    assert(event.target == myButton,
+		    assert(event.target === myButton,
 		          "The target of the event is also myButton");
-		    assert(this == myButton,
+		    assert(this === myButton,
 		           "The handler is registered on myButton");
 		  });
-
-			assert(true, "Click on the button");
 		</script>
+		<p>Click on the button</p>
 	</body>
 </html>
