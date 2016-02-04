@@ -9,21 +9,20 @@
 	<body>
 		<script>
 			function bindEvent(element, type, handle) {
-  			if (element.addEventListener) {
-    			element.addEventListener(type, handle, false);
-  			}
-  			else if (element.attachEvent) {
-    			element.attachEvent("on" + type, handle);
-  			}
+	  			if (element.addEventListener) {
+	    			element.addEventListener(type, handle, false);
+	  			}
+	  			else if (element.attachEvent) {
+	    			element.attachEvent("on" + type, handle);
+	  			}
 			}
 
-			var body = document.querySelector("body");
+			const body = document.querySelector("body");
 
 			bindEvent(body, "click", function(){
-				assert(true, "Body has been clicked");
+				report("Body has been clicked");
 			});
-
-			assert(true, "Click on the page");
 		</script>
+		<p>Click on the page</p>
 	</body>
 </html>
